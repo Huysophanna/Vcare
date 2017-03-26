@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\DashboardScript.cs" />
      <Compile Include="Assets\Scripts\ResponsiveBG.cs" />
+     <Compile Include="Assets\Scripts\UserDataScript.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
