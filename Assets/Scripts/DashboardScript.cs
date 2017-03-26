@@ -5,35 +5,37 @@ using UnityEngine.Assertions;
 
 public class DashboardScript : MonoBehaviour {
 
-	[SerializeField] private SpriteRenderer spriteBG;
+	[SerializeField] private GameObject settingPanel;
+	private bool musicOption = true;
+	private bool soundOption = true;
 
 	// Use this for initialization
 	void Start () {
-		//ensure that spriteBG is not null, drag and drop in the editor
-		Assert.IsNotNull (spriteBG);
-
-		Vector3 tempScale = spriteBG.transform.localScale;
-
-		//get the exact width of the sprite
-		float bgWidth = spriteBG.sprite.bounds.size.x;
-
-		//get the world height in terms of size value, camera height * 2
-		float worldHeight = Camera.main.orthographicSize * 2f;
-		float worldWidth = worldHeight / Screen.height * Screen.width;
-
-		//the exact scale value needed to scale to any screen size
-		tempScale.x = worldWidth / bgWidth;
-		spriteBG.transform.localScale = tempScale;
-
-
-		Debug.Log ("bgWidth: " + bgWidth);
-		Debug.Log ("worldHeight: " + worldHeight);
-		Debug.Log ("worldWidth: " + worldWidth);
-		Debug.Log ("tempScale.x: " + worldWidth / bgWidth);
+		//make sure to drag and drop the menu panel gameobject in the Editor
+		Assert.IsNotNull (settingPanel);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+	public void SettingIsClicked() {
+		settingPanel.SetActive (true);
+	}
+
+	public void ClosePanel() {
+		settingPanel.SetActive (false);
+	}
+
+	public void MusicOptToggle(bool val) {
+		musicOption = val;
+		Debug.Log ("Music Option: " + musicOption);
+	}
+
+	public void SoundOptToggle(bool val) {
+		soundOption = val;
+		Debug.Log ("Sound Option: " + soundOption);
+	}
+
 }
