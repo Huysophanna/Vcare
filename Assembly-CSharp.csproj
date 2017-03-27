@@ -46,6 +46,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AppServices\authentication\MobileServiceAuthenticationProvider.cs" />
+     <Compile Include="Assets\AppServices\client\IAzureMobileServiceClient.cs" />
+     <Compile Include="Assets\AppServices\client\MobileServiceClient.cs" />
+     <Compile Include="Assets\AppServices\helpers\DataHelper.cs" />
+     <Compile Include="Assets\AppServices\helpers\JsonHelper.cs" />
+     <Compile Include="Assets\AppServices\helpers\Model.cs" />
+     <Compile Include="Assets\AppServices\http\IRestResponse.cs" />
+     <Compile Include="Assets\AppServices\http\Method.cs" />
+     <Compile Include="Assets\AppServices\http\RestRequest.cs" />
+     <Compile Include="Assets\AppServices\http\RestResponse.cs" />
+     <Compile Include="Assets\AppServices\http\ZumoRequest.cs" />
+     <Compile Include="Assets\AppServices\model\AccessToken.cs" />
+     <Compile Include="Assets\AppServices\model\MobileServiceUser.cs" />
+     <Compile Include="Assets\AppServices\model\ResponseError.cs" />
+     <Compile Include="Assets\AppServices\model\User.cs" />
+     <Compile Include="Assets\AppServices\model\base\DataModel.cs" />
+     <Compile Include="Assets\AppServices\model\base\IDataModel.cs" />
+     <Compile Include="Assets\AppServices\model\nested\INestedResults.cs" />
+     <Compile Include="Assets\AppServices\model\nested\NestedResults.cs" />
+     <Compile Include="Assets\AppServices\table\IAzureMobileServiceTable.cs" />
+     <Compile Include="Assets\AppServices\table\MobileServiceTable.cs" />
+     <Compile Include="Assets\AppServices\table\query\CustomQuery.cs" />
      <Compile Include="Assets\Scripts\DashboardScript.cs" />
      <Compile Include="Assets\Scripts\ResponsiveBG.cs" />
      <Compile Include="Assets\Scripts\UserDataScript.cs" />
@@ -68,6 +90,10 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{348F9B0B-E1FF-E816-C8C8-90DB1CCCBF4D}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

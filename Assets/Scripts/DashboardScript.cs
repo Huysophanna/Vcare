@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class DashboardScript : MonoBehaviour {
 
 	[SerializeField] private GameObject settingPanel;
+	[SerializeField] private GameObject BGTransparency;
 	private bool musicOption = true;
 	private bool soundOption = true;
 
@@ -13,6 +15,7 @@ public class DashboardScript : MonoBehaviour {
 	void Start () {
 		//make sure to drag and drop the menu panel gameobject in the Editor
 		Assert.IsNotNull (settingPanel);
+		Assert.IsNotNull (BGTransparency);
 	}
 	
 	// Update is called once per frame
@@ -22,10 +25,12 @@ public class DashboardScript : MonoBehaviour {
 
 	public void SettingIsClicked() {
 		settingPanel.SetActive (true);
+		BGTransparency.SetActive (true);
 	}
 
 	public void ClosePanel() {
 		settingPanel.SetActive (false);
+		BGTransparency.SetActive (false);
 	}
 
 	public void MusicOptToggle(bool val) {
@@ -36,6 +41,11 @@ public class DashboardScript : MonoBehaviour {
 	public void SoundOptToggle(bool val) {
 		soundOption = val;
 		Debug.Log ("Sound Option: " + soundOption);
+	}
+
+	public void SideMenuIsClicked() {
+		SceneManager.LoadScene ("UserData");
+
 	}
 
 }
