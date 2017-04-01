@@ -63,10 +63,12 @@ public class StartMenuScript : MonoBehaviour {
 
 	IEnumerator WaitForUserData() {
 		while (GameManager.Instance.profileName == null) {
-			
 			yield return null;
 		}
+			
+		//identify whether the logged in user is a new user or existing user
+		//new user will be sent to UserData scene
+		GameManager.Instance.NewOrExistingUser ();
 
-		SceneManager.LoadScene ("Dashboard");
 	}
 }

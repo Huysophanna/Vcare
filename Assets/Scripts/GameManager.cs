@@ -26,8 +26,19 @@ public class GameManager : MonoBehaviour {
 	void Start() {
 		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
 			SceneManager.LoadScene ("Dashboard");
+			profileName = PlayerPrefs.GetString ("ProfileName");
 		} else {
 			SceneManager.LoadScene ("StartMenu");
+		}
+	}
+
+	public void NewOrExistingUser() {
+		//identify whether the user is new user
+		if (!PlayerPrefs.HasKey ("ExistingUser")) {
+			SceneManager.LoadScene ("UserData");
+		} else {
+			Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
+			SceneManager.LoadScene ("Dashboard");
 		}
 	}
 
@@ -76,7 +87,7 @@ public class GameManager : MonoBehaviour {
 
 		if (result.Error == null) {
 			profileName = result.ResultDictionary ["first_name"] + "";
-
+			PlayerPrefs.SetString ("ProfileName", profileName);
 		} else {
 			Debug.Log (result.Error);
 		}

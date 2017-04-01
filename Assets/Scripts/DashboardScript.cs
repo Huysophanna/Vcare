@@ -23,6 +23,9 @@ public class DashboardScript : MonoBehaviour {
 		displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
 
+		//set user to be an existing user
+		PlayerPrefs.SetString ("ExistingUser", "true");
+
 	}
 	
 	// Update is called once per frame
