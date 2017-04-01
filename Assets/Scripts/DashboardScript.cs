@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DashboardScript : MonoBehaviour {
 
 	[SerializeField] private GameObject settingPanel;
 	[SerializeField] private GameObject BGTransparency;
+	[SerializeField] private Text displayName;
 	private bool musicOption = true;
 	private bool soundOption = true;
 
@@ -16,6 +18,11 @@ public class DashboardScript : MonoBehaviour {
 		//make sure to drag and drop the menu panel gameobject in the Editor
 		Assert.IsNotNull (settingPanel);
 		Assert.IsNotNull (BGTransparency);
+		Assert.IsNotNull (displayName);
+
+		displayName.text = GameManager.Instance.profileName;
+		Debug.Log (GameManager.Instance.profileName);
+
 	}
 	
 	// Update is called once per frame
@@ -46,6 +53,11 @@ public class DashboardScript : MonoBehaviour {
 	public void SideMenuIsClicked() {
 		SceneManager.LoadScene ("UserData");
 
+	}
+
+	public void LogOut() {
+		PlayerPrefs.DeleteKey ("IsAuthenticated");
+		SceneManager.LoadScene ("StartMenu");
 	}
 
 }

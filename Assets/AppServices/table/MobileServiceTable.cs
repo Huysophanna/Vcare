@@ -25,7 +25,7 @@ namespace Unity3dAzure.AppServices
 		public IEnumerator Insert<T> (T item, Action<IRestResponse<T>> callback = null) where T : new()
 		{
 			string url = string.Format ("{0}/{1}{2}", _client.AppUrl, URI_TABLES, _name);
-			ZumoRequest request = new ZumoRequest (_client, url, Method.POST);
+			ZumoRequest request = new ZumoRequest (_client, url + "?ZUMO-API-VERSION=2.0.0", Method.POST);
 			Debug.Log ("Insert Request: " + url);
 			request.AddBody (item);
 			yield return request.request.Send ();
@@ -79,6 +79,7 @@ namespace Unity3dAzure.AppServices
 			string id = null;
 			// Check if model uses the 'IDataModel' Interface to get id property, otherwise try Refelection (using 'Model' helper).
 			IDataModel model = item as IDataModel;
+//			Debug.Log ("JAM MER =====" + model);
 			if (model != null) {
 				id = model.GetId ();
 			} else if (Model.HasField (item, "id")) {
@@ -91,7 +92,8 @@ namespace Unity3dAzure.AppServices
 				Debug.LogError ("Error 'id' value is missing");
 				yield return null;
 			}
-			string url = string.Format ("{0}/{1}{2}/{3}", _client.AppUrl, URI_TABLES, _name, id);
+//			Debug.Log ("USERID === " + _client.User.user.userId);
+			string url = string.Format ("{0}/{1}{2}/{3}", _client.AppUrl, URI_TABLES, _name, _client.User.user.userId);
 			ZumoRequest request = new ZumoRequest (_client, url, Method.PATCH);
 			request.AddBody (item);
 			Debug.Log ("Update Request Url: " + url + " patch:" + item);
