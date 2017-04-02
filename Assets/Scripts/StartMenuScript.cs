@@ -19,7 +19,6 @@ public class StartMenuScript : MonoBehaviour {
 	private Message _message;
 	private string AzureAppURL = "http://vcare.azurewebsites.net";
 
-
 	// App Service Rest Client
 //	private MobileServiceClient _client;
 
