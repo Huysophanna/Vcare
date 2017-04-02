@@ -24,12 +24,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
-		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-			SceneManager.LoadScene ("Dashboard");
-			profileName = PlayerPrefs.GetString ("ProfileName");
-		} else {
-			SceneManager.LoadScene ("StartMenu");
-		}
+		SceneManager.LoadScene ("Dashboard");
+		//if (PlayerPrefs.HasKey ("IsAuthenticated")) {
+			//SceneManager.LoadScene ("Dashboard");
+			//profileName = PlayerPrefs.GetString ("ProfileName");
+		//} else {
+			//SceneManager.LoadScene ("StartMenu");
+		//}
 	}
 
 	public void NewOrExistingUser() {
