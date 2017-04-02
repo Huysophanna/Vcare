@@ -23,6 +23,8 @@ public class DashboardScript : MonoBehaviour {
 		displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
 
+		GameManager.Instance.AuthenticateAzureService ("Reauthenticate");
+
 		//set user to be an existing user
 		PlayerPrefs.SetString ("ExistingUser", "true");
 

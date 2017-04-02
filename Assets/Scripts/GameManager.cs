@@ -4,6 +4,7 @@ using UnityEngine;
 using Facebook.Unity;
 using Unity3dAzure.AppServices;
 using UnityEngine.SceneManagement;
+using System.Net;
 
 public class GameManager : MonoBehaviour {
 
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	private string userAccessToken = "";
+
 	// App Service Table defined using a DataModel
 	public MobileServiceTable<Userdata> _table;
 	// App Service Rest Client
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
+		userAccessToken = PlayerPrefs.GetString ("FBAccessToken");
+
 		// Create App Service client
 		_client = new MobileServiceClient (AzureAppURL);
 
@@ -40,6 +45,8 @@ public class GameManager : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
 			SceneManager.LoadScene ("Dashboard");
 			profileName = PlayerPrefs.GetString ("ProfileName");
+
+
 		} else {
 			SceneManager.LoadScene ("StartMenu");
 		}
@@ -55,7 +62,31 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	private string authenticateOption = "";
+	public void AuthenticateAzureService(string _option) {
+		StartCoroutine (_client.Login (MobileServiceAuthenticationProvider.Facebook, userAccessToken, OnAzureLoginCompleted));
+		authenticateOption = _option;
+	}
 
+	void OnAzureLoginCompleted (IRestResponse<MobileServiceUser> response)
+	{
+		Debug.Log ("OnLoginCompleted: " + response.Content + " Url:" + response.Url);
+
+		if (!response.IsError && response.StatusCode == HttpStatusCode.OK) {
+			MobileServiceUser mobileServiceUser = response.Data;
+			GameManager.Instance._client.User = mobileServiceUser;
+			Debug.Log ("Authorized UserId: " + GameManager.Instance._client.User.user.userId);
+
+			if (authenticateOption == "FirstAuthenticate") {
+				//identify whether the logged in user is a new user or existing user
+				//new user will be sent to UserData scene
+				GameManager.Instance.NewOrExistingUser ();
+			}
+
+		} else {
+			Debug.LogWarning ("Authorization Error: " + response.StatusCode);
+		}
+	}
 
 
 	/* ===============================================================================================

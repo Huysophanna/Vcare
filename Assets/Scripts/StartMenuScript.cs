@@ -13,6 +13,13 @@ using System.Net;
 
 public class StartMenuScript : MonoBehaviour {
 
+	private static StartMenuScript _instance;
+	public static StartMenuScript Instance {
+		get {
+			return _instance;
+		}
+	}
+
 	private static string preScene;
 	public float speed;
 	private string userAccessToken = "";
@@ -29,6 +36,7 @@ public class StartMenuScript : MonoBehaviour {
 	}
 
 	void Awake() {
+		_instance = this;
 		GameManager.Instance.FBInit ();
 
 	}
@@ -60,9 +68,10 @@ public class StartMenuScript : MonoBehaviour {
 		} else {
 			if (FB.IsLoggedIn) {
 				userAccessToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
+				PlayerPrefs.SetString ("FBAccessToken", userAccessToken);
 
 				//Login with azure service
-				StartCoroutine (GameManager.Instance._client.Login (MobileServiceAuthenticationProvider.Facebook, userAccessToken, OnAzureLoginCompleted));
+				GameManager.Instance.AuthenticateAzureService("FirstAuthenticate");
 		
 				GameManager.Instance.isLoggedIn = true;
 				GameManager.Instance.GetProfile ();
@@ -76,27 +85,6 @@ public class StartMenuScript : MonoBehaviour {
 			}
 		}
 			
-	}
-
-
-
-	void OnAzureLoginCompleted (IRestResponse<MobileServiceUser> response)
-	{
-		Debug.Log ("OnLoginCompleted: " + response.Content + " Url:" + response.Url);
-
-		if (!response.IsError && response.StatusCode == HttpStatusCode.OK) {
-			MobileServiceUser mobileServiceUser = response.Data;
-			GameManager.Instance._client.User = mobileServiceUser;
-			Debug.Log ("Authorized UserId: " + GameManager.Instance._client.User.user.userId);
-
-
-			//identify whether the logged in user is a new user or existing user
-			//new user will be sent to UserData scene
-			GameManager.Instance.NewOrExistingUser ();
-		} else {
-			Debug.LogWarning ("Authorization Error: " + response.StatusCode);
-			_message = Message.Create ("Login failed", "Error");
-		}
 	}
 
 	IEnumerator WaitForUserData() {

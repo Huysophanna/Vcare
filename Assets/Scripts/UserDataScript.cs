@@ -69,7 +69,7 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	public void SaveData() {
-		Insert ();
+//		Insert ();
 
 		//initialized value if the default dropdown value is selected
 		GenderOnChanged (userGenderDropDown.value);
@@ -124,6 +124,8 @@ public class UserDataScript : MonoBehaviour {
 				Debug.Log ("DO UPDATE OPERATOIN");
 			}
 		}
+
+		SceneManager.LoadScene ("Dashboard");
 	}
 
 	private Userdata GetUserData ()
@@ -182,13 +184,16 @@ public class UserDataScript : MonoBehaviour {
 			userWeightInput.text = PlayerPrefs.GetString ("UserWeight");
 		}
 		if (PlayerPrefs.HasKey ("UserBirthDayIndex")) {
-			userBirthDayDropDown.value = PlayerPrefs.GetInt("UserBirthDayIndex");
+			userBirthDay = PlayerPrefs.GetInt("UserBirthDayIndex");
+			userBirthDayDropDown.value = userBirthDay;
 		}
 		if (PlayerPrefs.HasKey ("UserBirthMonthIndex")) {
-			userBirthMonthDropDown.value = PlayerPrefs.GetInt("UserBirthMonthIndex") - 1;
+			userBirthMonth = PlayerPrefs.GetInt("UserBirthMonthIndex") - 1;
+			userBirthMonthDropDown.value = userBirthMonth;
 		}
 		if (PlayerPrefs.HasKey ("UserBirthYearIndex")) {
-			userBirthYearDropDown.value = PlayerPrefs.GetInt("UserBirthYearIndex");
+			userBirthYear = PlayerPrefs.GetInt("UserBirthYearIndex");
+			userBirthYearDropDown.value = userBirthYear;
 		}
 
 	}
