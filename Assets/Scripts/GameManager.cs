@@ -37,12 +37,12 @@ public class GameManager : MonoBehaviour {
 		// Get App Service 'Highscores' table
 		_table = _client.GetTable<Userdata> ("Userdata");
 
-		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-			SceneManager.LoadScene ("Dashboard");
-			profileName = PlayerPrefs.GetString ("ProfileName");
-		} else {
-			SceneManager.LoadScene ("StartMenu");
-		}
+//		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
+//			SceneManager.LoadScene ("Dashboard");
+//			profileName = PlayerPrefs.GetString ("ProfileName");
+//		} else {
+//			SceneManager.LoadScene ("StartMenu");
+//		}
 	}
 
 	public void NewOrExistingUser() {

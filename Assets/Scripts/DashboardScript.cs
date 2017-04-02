@@ -9,7 +9,7 @@ public class DashboardScript : MonoBehaviour {
 
 	[SerializeField] private GameObject settingPanel;
 	[SerializeField] private GameObject BGTransparency;
-	[SerializeField] private Text displayName;
+	//[SerializeField] private Text displayName;
 	private bool musicOption = true;
 	private bool soundOption = true;
 
@@ -18,9 +18,9 @@ public class DashboardScript : MonoBehaviour {
 		//make sure to drag and drop the menu panel gameobject in the Editor
 		Assert.IsNotNull (settingPanel);
 		Assert.IsNotNull (BGTransparency);
-		Assert.IsNotNull (displayName);
+		//Assert.IsNotNull (displayName);
 
-		displayName.text = GameManager.Instance.profileName;
+		//displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
 
 		//set user to be an existing user
