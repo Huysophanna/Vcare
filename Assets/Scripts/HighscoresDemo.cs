@@ -29,7 +29,7 @@ public class HighscoresDemo : MonoBehaviour, ITableViewDataSource
 	private MobileServiceClient _client;
 
 	// App Service Table defined using a DataModel
-	private MobileServiceTable<Highscore> _table;
+	private MobileServiceTable<Userdata> _table;
 
 	// List of highscores (leaderboard)
 	private List<Highscore> _scores = new List<Highscore> ();
@@ -69,7 +69,7 @@ public class HighscoresDemo : MonoBehaviour, ITableViewDataSource
 		_client = new MobileServiceClient (_appUrl);
 
 		// Get App Service 'Highscores' table
-		_table = _client.GetTable<Highscore> ("Highscores");
+		_table = _client.GetTable<Userdata> ("Userdata");
 
 		// set TSTableView delegate
 		_tableView.dataSource = this;
@@ -129,22 +129,36 @@ public class HighscoresDemo : MonoBehaviour, ITableViewDataSource
 
 	public void Insert ()
 	{
-		Highscore score = GetScore ();
-		if (Validate (score)) {
-			StartCoroutine (_table.Insert<Highscore> (score, OnInsertCompleted));
-		}
+		Userdata userdata = GetUserData ();
+		//		if (Validate (score)) {
+		StartCoroutine (_table.Insert<Userdata> (userdata, OnInsertCompleted));
+		//		}
 	}
 
-	private void OnInsertCompleted (IRestResponse<Highscore> response)
+	private void OnInsertCompleted (IRestResponse<Userdata> response)
 	{
 		if (!response.IsError && response.StatusCode == HttpStatusCode.Created) {
 			Debug.Log ("OnInsertItemCompleted: " + response.Content + " status code:" + response.StatusCode + " data:" + response.Data);
-			Highscore item = response.Data; // if successful the item will have an 'id' property value
-			Debug.Log("JONG MER ====== "+item);
-			_score = item;
+			Userdata item = response.Data; // if successful the item will have an 'id' property value
+			//			Debug.Log("JONG MER ====== "+item);
+			//			_score = item;
 		} else {
 			Debug.LogWarning ("Insert Error Status:" + response.StatusCode + " Url: " + response.Url);
 		}
+	}
+
+	private Userdata GetUserData ()
+	{
+		Userdata userdata = new Userdata ();
+		userdata.username = GameManager.Instance.profileName;
+		userdata.birthDay = 0;
+		userdata.birthMonth = 0;
+		userdata.birthYear = 0;
+		userdata.gender = "";
+		userdata.height = "";
+		userdata.weight = "";
+
+		return userdata;
 	}
 
 	public void UpdateScore ()

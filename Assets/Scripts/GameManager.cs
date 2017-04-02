@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Facebook.Unity;
+using Unity3dAzure.AppServices;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -18,18 +19,30 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	// App Service Table defined using a DataModel
+	public MobileServiceTable<Userdata> _table;
+	// App Service Rest Client
+	public MobileServiceClient _client;
+	private string AzureAppURL = "http://vcare.azurewebsites.net";
+
 	void Awake() {
 		_instance = this;
 		DontDestroyOnLoad (this.gameObject);
 	}
 
 	void Start() {
-		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-			SceneManager.LoadScene ("Dashboard");
-			profileName = PlayerPrefs.GetString ("ProfileName");
-		} else {
-			SceneManager.LoadScene ("StartMenu");
-		}
+		// Create App Service client
+		_client = new MobileServiceClient (AzureAppURL);
+
+		// Get App Service 'Highscores' table
+		_table = _client.GetTable<Userdata> ("Userdata");
+
+//		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
+//			SceneManager.LoadScene ("Dashboard");
+//			profileName = PlayerPrefs.GetString ("ProfileName");
+//		} else {
+//			SceneManager.LoadScene ("StartMenu");
+//		}
 	}
 
 	public void NewOrExistingUser() {

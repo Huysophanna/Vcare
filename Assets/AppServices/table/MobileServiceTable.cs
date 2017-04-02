@@ -25,11 +25,16 @@ namespace Unity3dAzure.AppServices
 		public IEnumerator Insert<T> (T item, Action<IRestResponse<T>> callback = null) where T : new()
 		{
 			string url = string.Format ("{0}/{1}{2}", _client.AppUrl, URI_TABLES, _name);
-			ZumoRequest request = new ZumoRequest (_client, url + "?ZUMO-API-VERSION=2.0.0", Method.POST);
+			ZumoRequest request = new ZumoRequest (_client, url, Method.POST);
+		
+//			Debug.Log ();
+
 			Debug.Log ("Insert Request: " + url);
 			request.AddBody (item);
+			Debug.Log ("item: " + item);
 			yield return request.request.Send ();
 			request.ParseJson<T> (callback);
+			Debug.Log ("FINISHED!");
 		}
 
 		public IEnumerator Read<T> (Action<IRestResponse<T[]>> callback = null) where T : new()
@@ -94,6 +99,9 @@ namespace Unity3dAzure.AppServices
 			}
 //			Debug.Log ("USERID === " + _client.User.user.userId);
 			string url = string.Format ("{0}/{1}{2}/{3}", _client.AppUrl, URI_TABLES, _name, _client.User.user.userId);
+			Debug.Log ("_client.AppUrl"+_client.AppUrl);
+			Debug.Log ("URI_TABLES"+URI_TABLES);
+			Debug.Log ("_name"+_name);
 			ZumoRequest request = new ZumoRequest (_client, url, Method.PATCH);
 			request.AddBody (item);
 			Debug.Log ("Update Request Url: " + url + " patch:" + item);
