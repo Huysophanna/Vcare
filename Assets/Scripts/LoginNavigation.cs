@@ -17,7 +17,7 @@ public class LoginNavigation : MonoBehaviour {
 
 	public void LoginbackScene() {
 		Debug.Log ("Calling success!");
-		Navigation nv = new Navigation ();
+		StartMenuScript nv = new StartMenuScript ();
 		nv.backScene ();
 	}
 }

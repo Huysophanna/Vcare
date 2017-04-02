@@ -140,6 +140,7 @@ public class HighscoresDemo : MonoBehaviour, ITableViewDataSource
 		if (!response.IsError && response.StatusCode == HttpStatusCode.Created) {
 			Debug.Log ("OnInsertItemCompleted: " + response.Content + " status code:" + response.StatusCode + " data:" + response.Data);
 			Highscore item = response.Data; // if successful the item will have an 'id' property value
+			Debug.Log("JONG MER ====== "+item);
 			_score = item;
 		} else {
 			Debug.LogWarning ("Insert Error Status:" + response.StatusCode + " Url: " + response.Url);
@@ -422,14 +423,14 @@ public class HighscoresDemo : MonoBehaviour, ITableViewDataSource
 		CanvasGroup groupUpdate = update.GetComponent<CanvasGroup> ();
 		if (String.IsNullOrEmpty (id.text)) {
 			groupInsert.alpha = 1; 
-			groupUpdate.alpha = 0;
+//			groupUpdate.alpha = 0;
 			groupInsert.interactable = true;
-			groupUpdate.interactable = false;
+//			groupUpdate.interactable = false;
 		} else {
-			groupInsert.alpha = 0; 
-			groupUpdate.alpha = 1;
+			groupInsert.alpha = 0;
+//			groupUpdate.alpha = 1;
 			groupInsert.interactable = false;
-			groupUpdate.interactable = true;
+//			groupUpdate.interactable = true;
 		}
 
 		// Close dialog if no message
