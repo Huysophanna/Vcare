@@ -22,7 +22,7 @@ public class TogglePanel : MonoBehaviour {
 
 	public void SettingIsClicked() {
 		Debug.Log ("Transparent Active");
-		//settingPanel.SetActive (true);
+		settingPanel.SetActive (true);
 		BGTransparency.SetActive (true);
 	}
 

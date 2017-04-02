@@ -8,12 +8,17 @@ public class bounciness : MonoBehaviour {
 	public Rigidbody2D rg;
 	// Use this for initialization
 	void Start () {
-		
 	}
 
 	// Update is called once per frame
 	void Update () {
 		rg.AddForce (new Vector2 (Random.Range(-speed,speed),Random.Range(-speed,speed)));
+
+		Vector2 pos = transform.position;
+
+		if (Input.mousePosition.Equals(pos)) {
+			Debug.Log("Touch it! Touch me!");
+		}
 	}
 
 
