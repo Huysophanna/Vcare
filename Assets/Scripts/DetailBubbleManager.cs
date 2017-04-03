@@ -24,10 +24,10 @@ public class DetailBubbleManager : MonoBehaviour {
 	void Start () {
 		Debug.Log (objgame.Length);
 	}
-		
+
 	public void bubbledraggedin (Vector2 mousepos,string objgamename){
-		Vector2 min = new Vector2 (0.2f, 0.2f);
-		Vector2 max = new Vector2 (0.8f, 0.8f);
+		Vector2 min = new Vector2 (0.3f, 0.3f);
+		Vector2 max = new Vector2 (0.4f, 0.4f);
 		//Debug.Log (mousepos.x.ToString() + "" + mousepos.y.ToString());
 		if (mousepos.x >= min.x && mousepos.x <= max.x || mousepos.y >= min.y && mousepos.y <= max.y ){
 			if (bubbleisselect) {
@@ -39,6 +39,7 @@ public class DetailBubbleManager : MonoBehaviour {
 					objselect = gamenum;
 				}
 			}
+
 			//Debug.Log ("Mouse is inside the bubble!!!!");
 			bubbleisselect = true;
 			objgame [objselect].SetActive (false);

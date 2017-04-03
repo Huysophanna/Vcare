@@ -93,12 +93,12 @@ namespace Unity3dAzure.AppServices
 			} else {
 				Debug.LogError ("Unable to get 'id' data model property");
 			}
-			if (string.IsNullOrEmpty (id)) {
-				Debug.LogError ("Error 'id' value is missing");
-				yield return null;
-			}
+//			if (string.IsNullOrEmpty (id)) {
+//				Debug.LogError ("Error 'id' value is missing");
+//				yield return null;
+//			}
 //			Debug.Log ("USERID === " + _client.User.user.userId);
-			string url = string.Format ("{0}/{1}{2}/{3}", _client.AppUrl, URI_TABLES, _name, _client.User.user.userId);
+			string url = string.Format ("{0}/{1}{2}/{3}", _client.AppUrl, URI_TABLES, _name, GameManager.Instance._client.User.user.userId);
 			Debug.Log ("_client.AppUrl"+_client.AppUrl);
 			Debug.Log ("URI_TABLES"+URI_TABLES);
 			Debug.Log ("_name"+_name);

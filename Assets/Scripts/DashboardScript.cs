@@ -9,7 +9,14 @@ public class DashboardScript : MonoBehaviour {
 
 	[SerializeField] private GameObject settingPanel;
 	[SerializeField] private GameObject BGTransparency;
+<<<<<<< HEAD
 	//[SerializeField] private Text displayName;
+=======
+	[SerializeField] private GameObject CatagorySelection;
+	[SerializeField] private GameObject MealContent;
+	[SerializeField] private GameObject SnackContent;
+	[SerializeField] private Text displayName;
+>>>>>>> fe7770a52797a87575ff4d90931c21a11172763d
 	private bool musicOption = true;
 	private bool soundOption = true;
 
@@ -18,10 +25,23 @@ public class DashboardScript : MonoBehaviour {
 		//make sure to drag and drop the menu panel gameobject in the Editor
 		Assert.IsNotNull (settingPanel);
 		Assert.IsNotNull (BGTransparency);
+<<<<<<< HEAD
 		//Assert.IsNotNull (displayName);
+=======
+		Assert.IsNotNull (displayName);
+		Assert.IsNotNull (CatagorySelection);
+		Assert.IsNotNull (MealContent);
+>>>>>>> fe7770a52797a87575ff4d90931c21a11172763d
 
 		//displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
+
+		//Reauthenticate for auto login user
+		if (PlayerPrefs.HasKey ("ExistingUser")) {
+			GameManager.Instance.AuthenticateAzureService ();
+		}
+
+		Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
 
 		//set user to be an existing user
 		PlayerPrefs.SetString ("ExistingUser", "true");
@@ -61,6 +81,18 @@ public class DashboardScript : MonoBehaviour {
 	public void LogOut() {
 		PlayerPrefs.DeleteKey ("IsAuthenticated");
 		SceneManager.LoadScene ("StartMenu");
+//		PlayerPrefs.DeleteAll ();
 	}
+
+	public void MealButtonIsClicked() {
+		CatagorySelection.SetActive (false);
+		MealContent.SetActive (true);
+	}
+
+	public void SnackButtonIsClicked() {
+		CatagorySelection.SetActive (false);
+		SnackContent.SetActive (true);
+	}
+
 
 }

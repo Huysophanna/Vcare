@@ -4,26 +4,25 @@ using UnityEngine;
 using Facebook.Unity;
 using Unity3dAzure.AppServices;
 using UnityEngine.SceneManagement;
+using System.Net;
 
 public class GameManager : MonoBehaviour {
 
 	private static GameManager _instance;
 	public static GameManager Instance {
 		get {
-			if (_instance == null) {
-				GameObject FBManager = new GameObject ("FBManager");
-				FBManager.AddComponent<GameManager> ();
-			}
-
 			return _instance;
 		}
 	}
+
+	private string userAccessToken = "";
 
 	// App Service Table defined using a DataModel
 	public MobileServiceTable<Userdata> _table;
 	// App Service Rest Client
 	public MobileServiceClient _client;
 	private string AzureAppURL = "http://vcare.azurewebsites.net";
+	public string AzureAuthorizedID = "";
 
 	void Awake() {
 		_instance = this;
@@ -31,18 +30,50 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
+
 		// Create App Service client
 		_client = new MobileServiceClient (AzureAppURL);
 
 		// Get App Service 'Highscores' table
 		_table = _client.GetTable<Userdata> ("Userdata");
 
+<<<<<<< HEAD
 //		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
 //			SceneManager.LoadScene ("Dashboard");
 //			profileName = PlayerPrefs.GetString ("ProfileName");
 //		} else {
 //			SceneManager.LoadScene ("StartMenu");
 //		}
+=======
+<<<<<<< HEAD
+//		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
+//			SceneManager.LoadScene ("Dashboard");
+//			profileName = PlayerPrefs.GetString ("ProfileName");
+//
+//
+//		} else {
+//			SceneManager.LoadScene ("StartMenu");
+//		}
+||||||| merged common ancestors
+		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
+			SceneManager.LoadScene ("Dashboard");
+			profileName = PlayerPrefs.GetString ("ProfileName");
+
+
+		} else {
+			SceneManager.LoadScene ("StartMenu");
+		}
+=======
+		if (PlayerPrefs.HasKey ("IsAuthenticated") && PlayerPrefs.HasKey ("ExistingUser")) {
+			SceneManager.LoadScene ("Dashboard");
+			profileName = PlayerPrefs.GetString ("ProfileName");
+
+
+		} else {
+			SceneManager.LoadScene ("StartMenu");
+		}
+>>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+>>>>>>> fe7770a52797a87575ff4d90931c21a11172763d
 	}
 
 	public void NewOrExistingUser() {
@@ -55,7 +86,40 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+//	private string authenticateOption = "";
+	public void AuthenticateAzureService() {
+		StartCoroutine ("WaitForAccessToken");
+//		authenticateOption = _option;
+	}
 
+	void AuthenticateAzureServiceStart() {
+		StartCoroutine (_client.Login (MobileServiceAuthenticationProvider.Facebook, userAccessToken, OnAzureLoginCompleted));
+	}
+
+	void OnAzureLoginCompleted (IRestResponse<MobileServiceUser> response)
+	{
+		Debug.Log ("OnLoginCompleted: " + response.Content + " Url:" + response.Url);
+
+		if (!response.IsError && response.StatusCode == HttpStatusCode.OK) {
+			MobileServiceUser mobileServiceUser = response.Data;
+			GameManager.Instance._client.User = mobileServiceUser;
+			Debug.Log ("Authorized UserId: " + GameManager.Instance._client.User.user.userId);
+
+			AzureAuthorizedID = GameManager.Instance._client.User.user.userId;
+			Debug.Log (AzureAuthorizedID);
+		} else {
+			Debug.LogWarning ("Authorization Error: " + response.StatusCode);
+		}
+	}
+
+	IEnumerator WaitForAccessToken() {
+		userAccessToken = PlayerPrefs.GetString ("FBAccessToken");
+		while (userAccessToken == null) {
+			yield return null;
+		}
+		AuthenticateAzureServiceStart ();
+
+	}
 
 
 	/* ===============================================================================================
