@@ -9,6 +9,9 @@ public class DashboardScript : MonoBehaviour {
 
 	[SerializeField] private GameObject settingPanel;
 	[SerializeField] private GameObject BGTransparency;
+	[SerializeField] private GameObject CatagorySelection;
+	[SerializeField] private GameObject MealContent;
+	[SerializeField] private GameObject SnackContent;
 	[SerializeField] private Text displayName;
 	private bool musicOption = true;
 	private bool soundOption = true;
@@ -19,6 +22,8 @@ public class DashboardScript : MonoBehaviour {
 		Assert.IsNotNull (settingPanel);
 		Assert.IsNotNull (BGTransparency);
 		Assert.IsNotNull (displayName);
+		Assert.IsNotNull (CatagorySelection);
+		Assert.IsNotNull (MealContent);
 
 		displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
@@ -70,5 +75,16 @@ public class DashboardScript : MonoBehaviour {
 		SceneManager.LoadScene ("StartMenu");
 //		PlayerPrefs.DeleteAll ();
 	}
+
+	public void MealButtonIsClicked() {
+		CatagorySelection.SetActive (false);
+		MealContent.SetActive (true);
+	}
+
+	public void SnackButtonIsClicked() {
+		CatagorySelection.SetActive (false);
+		SnackContent.SetActive (true);
+	}
+
 
 }
