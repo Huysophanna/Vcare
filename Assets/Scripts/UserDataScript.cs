@@ -37,22 +37,17 @@ public class UserDataScript : MonoBehaviour {
 	private int userBirthDayIndex;
 	private int userGenderIndex;
 	private string userGender = "";
-<<<<<<< HEAD
 	private JsonData Json;
 	private string[] item_names = new string[50];
 	private string[] calories = new string[50];
 	private string[] total = new string[50];
 	private double BMI;
-||||||| merged common ancestors
 
-=======
 	private string AzureAuthorizedID;
 	private int exerciseFrequency;
 
 	Userdata[] AzureUserData;
 	Userdata userdata;
-
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
 
 	List<string> birthYear = new List<string>();
 	List<string> birthDay = new List<string>();
@@ -90,17 +85,12 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (userBirthDayDropDown);
 		Assert.IsNotNull (popUpInfoText);
 		Assert.IsNotNull (userGenderDropDown);
-<<<<<<< HEAD
-//		StartCoroutine(APIcall());
-||||||| merged common ancestors
-
-=======
 		Assert.IsNotNull (AlwaysBtn);
 		Assert.IsNotNull (OftenBtn);
 		Assert.IsNotNull (NeverBtn);
 		Assert.IsNotNull (CloseBtn);
 
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+//		StartCoroutine(APIcall());
 
 		//initialize popup alert text with username for NEW user
 		popUpInfoText.text = "Hi there " + GameManager.Instance.profileName + ", \n\nWe'd like to know more about you, to assist you in a best way .";
@@ -152,43 +142,6 @@ public class UserDataScript : MonoBehaviour {
 		}
 	}
 	public void SaveData() {
-<<<<<<< HEAD
-//		Insert ();
-
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
-
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetString("UserGender", userGender);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
-		BMICalulation (userHeightInput.text,userWeightInput.text);
-//		SceneManager.LoadScene ("Dashboard");
-||||||| merged common ancestors
-//		Insert ();
-
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
-
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetString("UserGender", userGender);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
-
-//		SceneManager.LoadScene ("Dashboard");
-=======
 		userdata = PrepareUserData ();
 		if (Validate (userdata)) {
 			// TODO: Alert, exercise frequency
@@ -209,7 +162,6 @@ public class UserDataScript : MonoBehaviour {
 			PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
 		}
 	
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
 	}
 
 	/* ===============================================================================================
@@ -523,16 +475,10 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	public void GenderOnChanged(int _genderIndex) {
-<<<<<<< HEAD
-		userGender = _genderIndex == 0 ? "Male" : "Female";
-||||||| merged common ancestors
-		userGender = _genderIndex == 0 ? "Male" : "Female";
-		Debug.Log (userGender);
-=======
 		userGenderIndex = _genderIndex;
 		userGender = _genderIndex == 1 ? "Male" : "Female";
 		Debug.Log (userGender);
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+
 	}
 
 	public void BirthDayOnChanged(int _dayIndex) {
