@@ -19,6 +19,11 @@ public class UserDataScript : MonoBehaviour {
 	[SerializeField] private Text popUpInfoText;
 	[SerializeField] private GameObject AlertPanel;
 	[SerializeField] private GameObject BGTransparency;
+	[SerializeField] private GameObject AlwaysBtn;
+	[SerializeField] private GameObject OftenBtn;
+	[SerializeField] private GameObject NeverBtn;
+	[SerializeField] private GameObject CloseBtn;
+
 
 
 	private int userBirthMonth;
@@ -31,6 +36,10 @@ public class UserDataScript : MonoBehaviour {
 	private int userGenderIndex;
 	private string userGender = "";
 	private string AzureAuthorizedID;
+	private int exerciseFrequency;
+
+	Userdata[] AzureUserData;
+	Userdata userdata;
 
 
 	List<string> birthYear = new List<string>();
@@ -69,6 +78,10 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (userBirthDayDropDown);
 		Assert.IsNotNull (popUpInfoText);
 		Assert.IsNotNull (userGenderDropDown);
+		Assert.IsNotNull (AlwaysBtn);
+		Assert.IsNotNull (OftenBtn);
+		Assert.IsNotNull (NeverBtn);
+		Assert.IsNotNull (CloseBtn);
 
 
 		//initialize popup alert text with username for NEW user
@@ -83,21 +96,25 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	public void SaveData() {
-		Insert ();
+		userdata = PrepareUserData ();
+		if (Validate (userdata)) {
+			// TODO: Alert, exercise frequency
+			PopupExerciseFrequency ();
 
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
+			//initialized value if the default dropdown value is selected
+			GenderOnChanged (userGenderDropDown.value);
+			BirthDayOnChanged (userBirthDayDropDown.value);
+			BirthMonthOnChanged (userBirthMonthDropDown.value);
+			BirthYearOnChanged (userBirthYearDropDown.value);
 
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetInt("UserGenderIndex", userGenderIndex);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
+			//Save data into storage
+			PlayerPrefs.SetString("UserHeight", userHeightInput.text);
+			PlayerPrefs.SetString("UserWeight", userWeightInput.text);
+			PlayerPrefs.SetInt("UserGenderIndex", userGenderIndex);
+			PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
+			PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
+			PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
+		}
 	
 	}
 
@@ -106,6 +123,24 @@ public class UserDataScript : MonoBehaviour {
 		BGTransparency.SetActive (false);
 	}
 		
+	void PopupExerciseFrequency() {
+		popUpInfoText.text = "How often you do exercise?";
+		AlertPanel.SetActive (true);
+		NeverBtn.SetActive (true);
+		OftenBtn.SetActive (true);
+		AlwaysBtn.SetActive (true);
+		CloseBtn.SetActive (false);
+	}
+
+	public void ExerciseFrequencyAction(int _frequency) {
+		//freqency: 1 never, 2 often, 3 always
+		exerciseFrequency = _frequency;
+		PlayerPrefs.SetInt ("ExerciseFrequency", exerciseFrequency);
+
+		//insert user data to Azure service
+		Insert ();
+	}
+
 
 	/* ===============================================================================================
 	 * CRUD OPERATION WITH AZURE SERVICE
@@ -116,9 +151,7 @@ public class UserDataScript : MonoBehaviour {
 	public void Insert ()
 	{
 		Userdata userdata = PrepareUserData ();
-		if (Validate (userdata)) {
-			StartCoroutine (GameManager.Instance._table.Insert<Userdata> (userdata, OnInsertCompleted));
-		}
+		StartCoroutine (GameManager.Instance._table.Insert<Userdata> (userdata, OnInsertCompleted));
 	}
 
 	private void OnInsertCompleted (IRestResponse<Userdata> response)
@@ -165,18 +198,18 @@ public class UserDataScript : MonoBehaviour {
 
 	public void UpdateData ()
 	{
-		Userdata userdata = PrepareUserData ();
-		if (Validate (userdata)) {
+//		Userdata userdata = PrepareUserData ();
+//		if (Validate (userdata)) {
 			StartCoroutine (GameManager.Instance._table.Update<Userdata> (userdata, OnUpdateScoreCompleted));
-		}
+//		}
 	}
 
 	private void OnUpdateScoreCompleted (IRestResponse<Userdata> response)
 	{
 		if (!response.IsError) {
 			Debug.Log ("OnUpdateItemCompleted: " + response.Content);
-			SceneManager.LoadScene ("Dashboard");
 
+			SceneManager.LoadScene ("Dashboard");
 		} else {
 			Debug.LogWarning ("Update Error Status:" + response.StatusCode + " " + response.ErrorMessage + " Url: " + response.Url);
 			//TODO: Show alert, No connection
@@ -202,11 +235,23 @@ public class UserDataScript : MonoBehaviour {
 	{
 		if (!response.IsError) {
 			Debug.Log ("OnReadCompleted: " + response.Url + " data: " + response.Content);
-			Userdata[] items = response.Data;
-//			_isPaginated = false; // default query has max. of 50 records and is not paginated so disable infinite scroll 
-//			_scores = items.ToList ();
-//			HasNewData = true;
-			Debug.Log(response.Data.ToString());
+			AzureUserData = response.Data;
+
+
+			//Update data and Display in UI
+			foreach (var data in AzureUserData) {
+				userHeightInput.text = data.height;
+				userWeightInput.text = data.weight;
+				userGenderDropDown.value = data.gender == "Male" ? 1 : 2;
+				userBirthDayDropDown.value = data.birthDay;
+				userBirthMonthDropDown.value = data.birthMonth;
+				userBirthYearDropDown.value = data.birthYear - 1949;
+			}
+
+			Debug.Log(response.Content);
+			Debug.Log(AzureUserData.Length);
+
+
 		} else {
 			Debug.LogWarning ("Read Error Status:" + response.StatusCode + " Url: " + response.Url);
 		}
