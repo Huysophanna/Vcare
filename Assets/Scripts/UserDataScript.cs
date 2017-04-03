@@ -196,6 +196,7 @@ public class UserDataScript : MonoBehaviour {
 		int isActive = exerciseFrequency;
 		int Gender = userGender == "Male"? 1 : 2;
 		if (Gender == 1) {
+			PlayerPrefs.SetString("Gender","M");
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
 				PlayerPrefs.SetInt("Calories_In_Take", 2500);
@@ -285,6 +286,7 @@ public class UserDataScript : MonoBehaviour {
 			}
 
 		} else {
+			PlayerPrefs.SetString("Gender","F");
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
 				PlayerPrefs.SetInt("Calories_In_Take", 2500);
