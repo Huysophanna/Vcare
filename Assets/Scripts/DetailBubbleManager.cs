@@ -25,11 +25,13 @@ public class DetailBubbleManager : MonoBehaviour {
 		Debug.Log (objgame.Length);
 	}
 
-	public void bubbledraggedin (Vector2 mousepos,string objgamename){
-		Vector2 min = new Vector2 (0.3f, 0.3f);
-		Vector2 max = new Vector2 (0.4f, 0.4f);
+	public void bubbledraggedin (Vector2 mousepos, string objgamename){
+		Vector2 distance = new Vector2 (mousepos.x - transform.position.x, mousepos.y - transform.position.y);
+
+		Debug.Log ("X:" + distance.x.ToString() + "Y:" + distance.y.ToString());
 		//Debug.Log (mousepos.x.ToString() + "" + mousepos.y.ToString());
-		if (mousepos.x >= min.x && mousepos.x <= max.x || mousepos.y >= min.y && mousepos.y <= max.y ){
+
+		if ((distance.x > -1 && distance.x < 1) && (distance.y > -1 && distance.y < 1)){
 			if (bubbleisselect) {
 				Destroy (focusGameobj);
 				objgame [objselect].SetActive (true);
