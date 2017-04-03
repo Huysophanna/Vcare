@@ -401,7 +401,7 @@ public class UserDataScript : MonoBehaviour {
 		BMICalulation (userHeightInput.text,userWeightInput.text);
 
 		//insert user data to Azure service
-//		Insert ();
+		Insert ();
 	}
 
 

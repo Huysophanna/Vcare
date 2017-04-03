@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BackScriptTransparent : MonoBehaviour {
+public class DragBackCatagory : MonoBehaviour {
 
 	// Use this for initialization
-
-	void OnMouseDown(){
-		gameObject.SetActive (false);
-		Debug.Log (gameObject.name.ToString());
-	}
-
 	void Start () {
 		
+	}
+
+	public void OnDrag(PointerEventData eventData)
+	{
+		print("I'm being dragged!");
+		Debug.Log(eventData.pointerEnter.name);
 	}
 	
 	// Update is called once per frame
