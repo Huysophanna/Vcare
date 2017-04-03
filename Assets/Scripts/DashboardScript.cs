@@ -73,7 +73,7 @@ public class DashboardScript : MonoBehaviour {
 	public void LogOut() {
 		PlayerPrefs.DeleteKey ("IsAuthenticated");
 		SceneManager.LoadScene ("StartMenu");
-//		PlayerPrefs.DeleteAll ();
+		PlayerPrefs.DeleteAll ();
 	}
 
 	public void MealButtonIsClicked() {
