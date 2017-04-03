@@ -32,7 +32,7 @@ public class BubbleController : MonoBehaviour {
 
 		transform.position = pos;
 
-		if (transform.position.x > max.x) {
+		if (transform.position.y > max.y+2f) {
 				Destroy (gameObject);
 		}
 	}

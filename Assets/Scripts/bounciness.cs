@@ -12,14 +12,7 @@ public class bounciness : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		//This is the floating movement -- adding force to the rigibody
 		rg.AddForce (new Vector2 (Random.Range(-speed,speed),Random.Range(-speed,speed)));
-
-		Vector2 pos = transform.position;
-
-		if (Input.mousePosition.Equals(pos)) {
-			Debug.Log("Touch it! Touch me!");
-		}
 	}
-
-
 }
