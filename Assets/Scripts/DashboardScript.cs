@@ -39,7 +39,7 @@ public class DashboardScript : MonoBehaviour {
 			GameManager.Instance.AuthenticateAzureService ();
 		}
 
-		Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
+//		Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
 
 		//set user to be an existing user
 		PlayerPrefs.SetString ("ExistingUser", "true");
