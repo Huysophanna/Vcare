@@ -163,6 +163,7 @@ public class UserDataScript : MonoBehaviour {
 			PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
 			PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
 			PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
+
 		}
 	
 
@@ -190,192 +191,193 @@ public class UserDataScript : MonoBehaviour {
 
 	public void CaloriesInTake(double BMI)
 	{
+		PlayerPrefs.SetFloat("BMI_Score",(float)BMI);
+		PlayerPrefs.SetInt("First_Time",1);
 		int isActive = exerciseFrequency;
 		int Gender = userGender == "Male"? 1 : 2;
 		if (Gender == 1) {
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
-				Debug.Log("Your are Underweight");
+				PlayerPrefs.SetInt("Calories_In_Take", 2500);
 			} 
 			else if (18.5 <= BMI && BMI <= 24.9) {
 				if (isActive == 3) {
 					if (2 <= age && age <= 3) {
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
 					} 
 					else if (4 <= age && age <= 8)
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
 					} 
 					else if (9 <= age && age <= 13) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2300");
+						PlayerPrefs.SetInt("Calories_In_Take", 2300);
 					} else if (14 <= age && age <= 18) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 3000");
+						PlayerPrefs.SetInt("Calories_In_Take", 3000);
 					} else if (19 <= age && age <= 30) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 3000");
 					} else if (31 <= age && age <= 50) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2800");
+						PlayerPrefs.SetInt("Calories_In_Take", 2800);
 					} 
 					else 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2600");
+						PlayerPrefs.SetInt("Calories_In_Take", 2600);
 					}
 				}
 				else if(isActive == 2)
 				{
 					if (2 <= age && age <= 3) {
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
 					} 
 					else if (4 <= age && age <= 8) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
 					} 
 					else if (9 <= age && age <= 13) 
 					{
-						Debug.Log ("\"Your BMI is normal. Your daily calories in take should be 2000");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					} else if (14 <= age && age <= 18) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2600");
+						PlayerPrefs.SetInt("Calories_In_Take", 2600);
 					} else if (19 <= age && age <= 30) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2700");
+						PlayerPrefs.SetInt("Calories_In_Take", 2700);
 					} else if (31 <= age && age <= 50) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
 					} 
 					else 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
 					}
 				}
 				else
 				{
 					if (2 <= age && age <= 3) {
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
 					} 
 					else if (4 <= age && age <= 8) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1400");
-					} 
+						PlayerPrefs.SetInt("Calories_In_Take", 1400);					} 
 					else if (9 <= age && age <= 13) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
 					} else if (14 <= age && age <= 18) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
 					} else if (19 <= age && age <= 30) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
 					} else if (31 <= age && age <= 50) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
 					} 
 					else 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 200");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					}
 				}
 			} 
 			else {
-				Debug.Log("You are Obese");
+				PlayerPrefs.SetInt("Calories_In_Take", 1400);
 			}
 
 		} else {
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
-				Debug.Log("You are underweight");
+				PlayerPrefs.SetInt("Calories_In_Take", 2500);
 			} 
 			else if (18.5 <= BMI && BMI <= 24.9) {
 				if (isActive == 3) {
 					if (2 <= age && age <= 3) {
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
 					} 
 					else if (4 <= age && age <= 8) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
 					} 
 					else if (9 <= age && age <= 13) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					} else if (14 <= age && age <= 18) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
 					} else if (19 <= age && age <= 30) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
 					} else if (31 <= age && age <= 50) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
 					} 
 					else 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					}
 				}
 				else if(isActive == 2)
 				{
 					if (2 <= age && age <= 3) {
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
 					} 
 					else if (4 <= age && age <= 8) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
 					} 
 					else if (9 <= age && age <= 13) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
 					} else if (14 <= age && age <= 18) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					} else if (19 <= age && age <= 30) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
 					} else if (31 <= age && age <= 50) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					} 
 					else 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
 					}
 				}
 				else
 				{
 					if (2 <= age && age <= 3) {
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
 					} 
 					else if (4 <= age && age <= 8) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1200");
+						PlayerPrefs.SetInt("Calories_In_Take", 1200);
 					} 
 					else if (9 <= age && age <= 13) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
 					} else if (14 <= age && age <= 18) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
 					} else if (19 <= age && age <= 30) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
 					} else if (31 <= age && age <= 50) 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
 					} 
 					else 
 					{
-						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
 					}
 				}
 			} 
-			else {
-				Debug.Log("You are Obses");
+			else { 
+				PlayerPrefs.SetInt("Calories_In_Take", 1300);
 			}
 
 		}
-
+		//insert user data to Azure service
+		Insert ();
 	}	
 
 	public void ConfirmPopUpInfoAlert() {
@@ -400,8 +402,6 @@ public class UserDataScript : MonoBehaviour {
 		//
 		BMICalulation (userHeightInput.text,userWeightInput.text);
 
-		//insert user data to Azure service
-//		Insert ();
 	}
 
 
