@@ -69,9 +69,6 @@ public class StartMenuScript : MonoBehaviour {
 			if (FB.IsLoggedIn) {
 				userAccessToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
 				PlayerPrefs.SetString ("FBAccessToken", userAccessToken);
-
-				//Login with azure service
-				GameManager.Instance.AuthenticateAzureService("FirstAuthenticate");
 		
 				GameManager.Instance.isLoggedIn = true;
 				GameManager.Instance.GetProfile ();
@@ -91,5 +88,9 @@ public class StartMenuScript : MonoBehaviour {
 		while (GameManager.Instance.profileName == null) {
 			yield return null;
 		}
+
+		//identify whether the logged in user is a new user or existing user
+		//new user will be sent to UserData scene
+		GameManager.Instance.NewOrExistingUser ();
 	}
 }

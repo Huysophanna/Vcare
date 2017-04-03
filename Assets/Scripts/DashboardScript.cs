@@ -23,7 +23,12 @@ public class DashboardScript : MonoBehaviour {
 		displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
 
-		GameManager.Instance.AuthenticateAzureService ("Reauthenticate");
+		//Reauthenticate for auto login user
+		if (PlayerPrefs.HasKey ("ExistingUser")) {
+			GameManager.Instance.AuthenticateAzureService ();
+		}
+
+		Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
 
 		//set user to be an existing user
 		PlayerPrefs.SetString ("ExistingUser", "true");
@@ -63,6 +68,7 @@ public class DashboardScript : MonoBehaviour {
 	public void LogOut() {
 		PlayerPrefs.DeleteKey ("IsAuthenticated");
 		SceneManager.LoadScene ("StartMenu");
+//		PlayerPrefs.DeleteAll ();
 	}
 
 }
