@@ -37,25 +37,7 @@ public class GameManager : MonoBehaviour {
 		// Get App Service 'Highscores' table
 		_table = _client.GetTable<Userdata> ("Userdata");
 
-<<<<<<< HEAD
-//		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-//			SceneManager.LoadScene ("Dashboard");
-//			profileName = PlayerPrefs.GetString ("ProfileName");
-//
-//
-//		} else {
-//			SceneManager.LoadScene ("StartMenu");
-//		}
-||||||| merged common ancestors
-		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-			SceneManager.LoadScene ("Dashboard");
-			profileName = PlayerPrefs.GetString ("ProfileName");
 
-
-		} else {
-			SceneManager.LoadScene ("StartMenu");
-		}
-=======
 		if (PlayerPrefs.HasKey ("IsAuthenticated") && PlayerPrefs.HasKey ("ExistingUser")) {
 			SceneManager.LoadScene ("Dashboard");
 			profileName = PlayerPrefs.GetString ("ProfileName");
@@ -64,7 +46,7 @@ public class GameManager : MonoBehaviour {
 		} else {
 			SceneManager.LoadScene ("StartMenu");
 		}
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+
 	}
 
 	public void NewOrExistingUser() {

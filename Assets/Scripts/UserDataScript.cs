@@ -37,22 +37,18 @@ public class UserDataScript : MonoBehaviour {
 	private int userBirthDayIndex;
 	private int userGenderIndex;
 	private string userGender = "";
-<<<<<<< HEAD
+
 	private JsonData Json;
 	private string[] item_names = new string[50];
 	private string[] calories = new string[50];
 	private string[] total = new string[50];
 	private double BMI;
-||||||| merged common ancestors
-
-=======
 	private string AzureAuthorizedID;
 	private int exerciseFrequency;
 
 	Userdata[] AzureUserData;
 	Userdata userdata;
 
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
 
 	List<string> birthYear = new List<string>();
 	List<string> birthDay = new List<string>();
@@ -90,17 +86,14 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (userBirthDayDropDown);
 		Assert.IsNotNull (popUpInfoText);
 		Assert.IsNotNull (userGenderDropDown);
-<<<<<<< HEAD
-//		StartCoroutine(APIcall());
-||||||| merged common ancestors
-
-=======
 		Assert.IsNotNull (AlwaysBtn);
 		Assert.IsNotNull (OftenBtn);
 		Assert.IsNotNull (NeverBtn);
 		Assert.IsNotNull (CloseBtn);
 
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+//		StartCoroutine(APIcall());
+
+
 
 		//initialize popup alert text with username for NEW user
 		popUpInfoText.text = "Hi there " + GameManager.Instance.profileName + ", \n\nWe'd like to know more about you, to assist you in a best way .";
@@ -152,43 +145,6 @@ public class UserDataScript : MonoBehaviour {
 		}
 	}
 	public void SaveData() {
-<<<<<<< HEAD
-//		Insert ();
-
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
-
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetString("UserGender", userGender);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
-		BMICalulation (userHeightInput.text,userWeightInput.text);
-//		SceneManager.LoadScene ("Dashboard");
-||||||| merged common ancestors
-//		Insert ();
-
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
-
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetString("UserGender", userGender);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
-
-//		SceneManager.LoadScene ("Dashboard");
-=======
 		userdata = PrepareUserData ();
 		if (Validate (userdata)) {
 			// TODO: Alert, exercise frequency
@@ -209,7 +165,7 @@ public class UserDataScript : MonoBehaviour {
 			PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
 		}
 	
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+
 	}
 
 	/* ===============================================================================================
@@ -224,7 +180,7 @@ public class UserDataScript : MonoBehaviour {
 		int Weight = Int32.Parse(userWeight);
 //		Debug.Log(Weight);
 		BMI =  Math.Round(Weight / (Height*Height),1);
-		Debug.Log (BMI); 
+		CaloriesInTake (BMI); 
 	}
 
 	/* ===============================================================================================
@@ -234,34 +190,188 @@ public class UserDataScript : MonoBehaviour {
 
 	public void CaloriesInTake(double BMI)
 	{
-		int isActive = 1;
+		int isActive = exerciseFrequency;
 		int Gender = userGender == "Male"? 1 : 2;
 		if (Gender == 1) {
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
+				Debug.Log("Your are Underweight");
 			} 
 			else if (18.5 <= BMI && BMI <= 24.9) {
 				if (isActive == 3) {
+					if (2 <= age && age <= 3) {
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+					} 
+					else if (4 <= age && age <= 8)
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2300");
+					} else if (14 <= age && age <= 18) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 3000");
+					} else if (19 <= age && age <= 30) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 3000");
+					} else if (31 <= age && age <= 50) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2800");
+					} 
+					else 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2600");
+					}
 				}
 				else if(isActive == 2)
 				{
-					
+					if (2 <= age && age <= 3) {
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						Debug.Log ("\"Your BMI is normal. Your daily calories in take should be 2000");
+					} else if (14 <= age && age <= 18) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2600");
+					} else if (19 <= age && age <= 30) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2700");
+					} else if (31 <= age && age <= 50) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+					} 
+					else 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+					}
 				}
 				else
 				{
-					
+					if (2 <= age && age <= 3) {
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1400");
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+					} else if (14 <= age && age <= 18) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+					} else if (19 <= age && age <= 30) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+					} else if (31 <= age && age <= 50) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+					} 
+					else 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 200");
+					}
 				}
 			} 
 			else {
+				Debug.Log("You are Obese");
 			}
 
 		} else {
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
+				Debug.Log("You are underweight");
 			} 
 			else if (18.5 <= BMI && BMI <= 24.9) {
+				if (isActive == 3) {
+					if (2 <= age && age <= 3) {
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+					} else if (14 <= age && age <= 18) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+					} else if (19 <= age && age <= 30) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2400");
+					} else if (31 <= age && age <= 50) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+					} 
+					else 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+					}
+				}
+				else if(isActive == 2)
+				{
+					if (2 <= age && age <= 3) {
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+					} else if (14 <= age && age <= 18) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+					} else if (19 <= age && age <= 30) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2200");
+					} else if (31 <= age && age <= 50) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+					} 
+					else 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+					}
+				}
+				else
+				{
+					if (2 <= age && age <= 3) {
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1000");
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1200");
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+					} else if (14 <= age && age <= 18) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+					} else if (19 <= age && age <= 30) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 2000");
+					} else if (31 <= age && age <= 50) 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1800");
+					} 
+					else 
+					{
+						Debug.Log("Your BMI is normal. Your daily calories in take should be 1600");
+					}
+				}
 			} 
 			else {
+				Debug.Log("You are Obses");
 			}
 
 		}
@@ -287,8 +397,11 @@ public class UserDataScript : MonoBehaviour {
 		exerciseFrequency = _frequency;
 		PlayerPrefs.SetInt ("ExerciseFrequency", exerciseFrequency);
 
+		//
+		BMICalulation (userHeightInput.text,userWeightInput.text);
+
 		//insert user data to Azure service
-		Insert ();
+//		Insert ();
 	}
 
 
@@ -397,9 +510,6 @@ public class UserDataScript : MonoBehaviour {
 				userBirthMonthDropDown.value = data.birthMonth;
 				userBirthYearDropDown.value = data.birthYear - 1949;
 			}
-
-			Debug.Log(response.Content);
-			Debug.Log(AzureUserData.Length);
 
 
 		} else {
@@ -523,16 +633,8 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	public void GenderOnChanged(int _genderIndex) {
-<<<<<<< HEAD
-		userGender = _genderIndex == 0 ? "Male" : "Female";
-||||||| merged common ancestors
-		userGender = _genderIndex == 0 ? "Male" : "Female";
-		Debug.Log (userGender);
-=======
 		userGenderIndex = _genderIndex;
 		userGender = _genderIndex == 1 ? "Male" : "Female";
-		Debug.Log (userGender);
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
 	}
 
 	public void BirthDayOnChanged(int _dayIndex) {
