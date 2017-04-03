@@ -11,11 +11,6 @@ public class GameManager : MonoBehaviour {
 	private static GameManager _instance;
 	public static GameManager Instance {
 		get {
-			if (_instance == null) {
-				GameObject FBManager = new GameObject ("FBManager");
-				FBManager.AddComponent<GameManager> ();
-			}
-
 			return _instance;
 		}
 	}
@@ -27,6 +22,7 @@ public class GameManager : MonoBehaviour {
 	// App Service Rest Client
 	public MobileServiceClient _client;
 	private string AzureAppURL = "http://vcare.azurewebsites.net";
+	public string AzureAuthorizedID = "";
 
 	void Awake() {
 		_instance = this;
@@ -34,7 +30,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
-		userAccessToken = PlayerPrefs.GetString ("FBAccessToken");
 
 		// Create App Service client
 		_client = new MobileServiceClient (AzureAppURL);
@@ -42,7 +37,7 @@ public class GameManager : MonoBehaviour {
 		// Get App Service 'Highscores' table
 		_table = _client.GetTable<Userdata> ("Userdata");
 
-		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
+		if (PlayerPrefs.HasKey ("IsAuthenticated") && PlayerPrefs.HasKey ("ExistingUser")) {
 			SceneManager.LoadScene ("Dashboard");
 			profileName = PlayerPrefs.GetString ("ProfileName");
 
@@ -62,10 +57,14 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	private string authenticateOption = "";
-	public void AuthenticateAzureService(string _option) {
+//	private string authenticateOption = "";
+	public void AuthenticateAzureService() {
+		StartCoroutine ("WaitForAccessToken");
+//		authenticateOption = _option;
+	}
+
+	void AuthenticateAzureServiceStart() {
 		StartCoroutine (_client.Login (MobileServiceAuthenticationProvider.Facebook, userAccessToken, OnAzureLoginCompleted));
-		authenticateOption = _option;
 	}
 
 	void OnAzureLoginCompleted (IRestResponse<MobileServiceUser> response)
@@ -77,15 +76,20 @@ public class GameManager : MonoBehaviour {
 			GameManager.Instance._client.User = mobileServiceUser;
 			Debug.Log ("Authorized UserId: " + GameManager.Instance._client.User.user.userId);
 
-			if (authenticateOption == "FirstAuthenticate") {
-				//identify whether the logged in user is a new user or existing user
-				//new user will be sent to UserData scene
-				GameManager.Instance.NewOrExistingUser ();
-			}
-
+			AzureAuthorizedID = GameManager.Instance._client.User.user.userId;
+			Debug.Log (AzureAuthorizedID);
 		} else {
 			Debug.LogWarning ("Authorization Error: " + response.StatusCode);
 		}
+	}
+
+	IEnumerator WaitForAccessToken() {
+		userAccessToken = PlayerPrefs.GetString ("FBAccessToken");
+		while (userAccessToken == null) {
+			yield return null;
+		}
+		AuthenticateAzureServiceStart ();
+
 	}
 
 
