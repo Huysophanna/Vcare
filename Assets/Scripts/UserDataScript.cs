@@ -68,7 +68,7 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	void Update() {
-//		UserDataScript.Instance.GetAzureUserData ();
+		//		UserDataScript.Instance.GetAzureUserData ();
 	}
 
 	void Start() {
@@ -91,7 +91,7 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (NeverBtn);
 		Assert.IsNotNull (CloseBtn);
 
-//		StartCoroutine(APIcall());
+		//		StartCoroutine(APIcall());
 
 
 
@@ -133,10 +133,10 @@ public class UserDataScript : MonoBehaviour {
 			// Show result
 			Json = JsonMapper.ToObject(request.downloadHandler.text);
 			for (int i = 0; i < Json["hits"].Count; i++) {
-					item_names[i] = Json["hits"][i]["fields"]["item_name"].ToString();
-					calories[i] = Json["hits"][i]["fields"]["nf_calories"].ToString();
-					total[i] = item_names[i] + "." + calories[i];
-						}
+				item_names[i] = Json["hits"][i]["fields"]["item_name"].ToString();
+				calories[i] = Json["hits"][i]["fields"]["nf_calories"].ToString();
+				total[i] = item_names[i] + "." + calories[i];
+			}
 			Array.Sort (total);
 			Array.Sort (item_names);
 			for (int i = 0; i < Json["hits"].Count; i++) {
@@ -165,7 +165,7 @@ public class UserDataScript : MonoBehaviour {
 			PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
 
 		}
-	
+
 
 	}
 
@@ -176,10 +176,10 @@ public class UserDataScript : MonoBehaviour {
 
 	public void BMICalulation(string userHeight, string userWeight)
 	{
-		
+
 		double Height = Int32.Parse(userHeight) / 100.0;
 		int Weight = Int32.Parse(userWeight);
-//		Debug.Log(Weight);
+		//		Debug.Log(Weight);
 		BMI =  Math.Round(Weight / (Height*Height),1);
 		CaloriesInTake (BMI); 
 	}
@@ -384,7 +384,7 @@ public class UserDataScript : MonoBehaviour {
 		AlertPanel.SetActive (false);
 		BGTransparency.SetActive (false);
 	}
-		
+
 	void PopupExerciseFrequency() {
 		popUpInfoText.text = "How often you do exercise?";
 		AlertPanel.SetActive (true);
@@ -422,8 +422,8 @@ public class UserDataScript : MonoBehaviour {
 		if (!response.IsError && response.StatusCode == HttpStatusCode.Created) {
 			Debug.Log ("OnInsertItemCompleted: " + response.Content + " status code:" + response.StatusCode + " data:" + response.Data);
 			Userdata item = response.Data; // if successful the item will have an 'id' property value
-//			Debug.Log("JONG MER ====== "+item);
-//			_score = item;
+			//			Debug.Log("JONG MER ====== "+item);
+			//			_score = item;
 
 			SceneManager.LoadScene ("Dashboard");
 		} else {
@@ -455,16 +455,16 @@ public class UserDataScript : MonoBehaviour {
 		userdata.gender = userGender;
 		userdata.height = userHeightInput.text;
 		userdata.weight = userWeightInput.text;
-		
+
 		return userdata;
 	}
 
 	public void UpdateData ()
 	{
-//		Userdata userdata = PrepareUserData ();
-//		if (Validate (userdata)) {
-			StartCoroutine (GameManager.Instance._table.Update<Userdata> (userdata, OnUpdateScoreCompleted));
-//		}
+		//		Userdata userdata = PrepareUserData ();
+		//		if (Validate (userdata)) {
+		StartCoroutine (GameManager.Instance._table.Update<Userdata> (userdata, OnUpdateScoreCompleted));
+		//		}
 	}
 
 	private void OnUpdateScoreCompleted (IRestResponse<Userdata> response)
@@ -481,7 +481,7 @@ public class UserDataScript : MonoBehaviour {
 
 	public void GetAzureUserData ()
 	{
-//		ResetList ();
+		//		ResetList ();
 		Userdata userdata = PrepareUserData ();
 		string filter = string.Format ("username eq '{0}'", GameManager.Instance.profileName);
 		//string orderBy = "score desc";
@@ -518,7 +518,7 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	IEnumerator WaitForAccessToken() {
-//		AzureAuthorizedID = PlayerPrefs.GetString ("AzureAuthorizedID");
+		//		AzureAuthorizedID = PlayerPrefs.GetString ("AzureAuthorizedID");
 		while (GameManager.Instance.AzureAuthorizedID == "") {
 			yield return null;
 		}
@@ -536,9 +536,9 @@ public class UserDataScript : MonoBehaviour {
 	*/
 
 
-//	/ <summary>
-//	/ Validate data before sending
-//	/ </summary>
+	//	/ <summary>
+	//	/ Validate data before sending
+	//	/ </summary>
 	private bool Validate (Userdata userdata)
 	{
 		bool isGenderValid = true, isBirthDayValid = true, isBirthMonthValid = true, isBirthYearValid = true, isHeightValid = true, isWeightValid = true;
@@ -640,13 +640,13 @@ public class UserDataScript : MonoBehaviour {
 	public void BirthDayOnChanged(int _dayIndex) {
 		userBirthDayIndex = _dayIndex;
 		userBirthDay = _dayIndex + 1;
-//		Debug.Log (userBirthDay);
+		//		Debug.Log (userBirthDay);
 	}
 
 	public void BirthMonthOnChanged(int _monthIndex) {
 		userBirthMonthIndex = _monthIndex + 1;
 		userBirthMonth = _monthIndex + 1;
-//		Debug.Log (userBirthMonth);
+		//		Debug.Log (userBirthMonth);
 
 		//TODO: Dynamically update the day for the selected month
 
@@ -670,7 +670,7 @@ public class UserDataScript : MonoBehaviour {
 	public void BirthYearOnChanged(int _yearIndex) {
 		userBirthYearIndex = _yearIndex;
 		userBirthYear = _yearIndex + 1950;
-//		Debug.Log (userBirthYear);
+		//		Debug.Log (userBirthYear);
 	}
 
 }
