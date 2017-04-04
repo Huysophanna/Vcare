@@ -155,6 +155,7 @@ public class UserDataScript : MonoBehaviour {
 	public void CaloriesInTake(double BMI)
 	{
 		PlayerPrefs.SetFloat("BMI_Score",(float)BMI);
+
 		PlayerPrefs.SetInt("First_Time",1);
 		int isActive = exerciseFrequency;
 		int Gender = userGender == "Male"? 1 : 2;

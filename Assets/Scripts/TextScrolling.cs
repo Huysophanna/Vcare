@@ -34,6 +34,9 @@ public class TextScrolling : MonoBehaviour {
 			else
 				BMI_Status = "overweight";
 			Info = "OK! You BMI Score is " + BMI_Score + ". So, you are " + BMI_Status + ". The daily calories in take for you is approximately " + Calories_In_Take + " kcal.";
+
+			PlayerPrefs.SetString ("BMIStatus", BMI_Status);
+
 			Stringinput.SetValue(Info,0);
 			PlayerPrefs.SetInt("First_Time",0);
 			StartCoroutine (TextAnimated());
@@ -62,7 +65,7 @@ public class TextScrolling : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			if (characterindex < Stringinput [stringindex].Length) {
 				characterindex = Stringinput [stringindex].Length;
-			}else if(stringindex < Stringinput.Length-1){
+			} else if(stringindex < Stringinput.Length-1){
 				stringindex++;
 				characterindex = 0;
 			}

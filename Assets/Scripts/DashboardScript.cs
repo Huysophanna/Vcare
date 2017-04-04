@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class DashboardScript : MonoBehaviour {
 
@@ -13,8 +14,26 @@ public class DashboardScript : MonoBehaviour {
 	[SerializeField] private GameObject CatagorySelection;
 	[SerializeField] private GameObject MealContent;
 	[SerializeField] private GameObject SnackContent;
+	[SerializeField] private Image healthBar;
+	[SerializeField] private Image BMIBar;
+	[SerializeField] private Image caloriesIntakeBar;
+	[SerializeField] private Text BMITitleText;
+
+
+	public Text healthProgressPercentage;
+	public Text BMIProgressPercentage;
+	public Text caloriesIntakeProgressPercentage;
+	private float healthProgressValue;
+	private float BMIProgressValue;
+	private float caloriesIntakeProgressValue;
+	private string BMI_Status = "";
+	private int CaloriesInTake;
+	private float caloriesPlayerIsHaving;
+
+
 	private bool musicOption = true;
 	private bool soundOption = true;
+	private float BMIValue;
 
 	// Use this for initialization
 
@@ -23,6 +42,9 @@ public class DashboardScript : MonoBehaviour {
 	}
 
 	void Start () {
+
+		// TODO: To calculate and add calories based on player's food
+		caloriesPlayerIsHaving = 1200;
 
 		//make sure to drag and drop the menu panel gameobject in the Editor
 		Assert.IsNotNull (settingPanel);
@@ -33,6 +55,9 @@ public class DashboardScript : MonoBehaviour {
 
 		displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
+
+		//get BMI value
+		BMIValue = PlayerPrefs.GetFloat("BMI_Score");
 
 		//Reauthenticate for auto login user
 		if (PlayerPrefs.HasKey ("ExistingUser")) {
@@ -48,7 +73,63 @@ public class DashboardScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		UpdateHealthProgressBar ();
+		UpdateBMIProgressBar ();
+		UpdateCaloriesIntakeProgressBar ();
+	}
+
+	private void UpdateHealthProgressBar() {
+//		Debug.Log ((float)healthBar.fillAmount);
+		healthProgressValue = 0.8f;
+		if (healthProgressValue <= 1) {
+
+			healthProgressValue = (float)Math.Round (healthProgressValue, 2, MidpointRounding.AwayFromZero );
+			healthBar.fillAmount = healthProgressValue;
+			healthProgressPercentage.text = ((float)healthBar.fillAmount) * 100 + "%";
+		} else
+			return;
+	}
+
+	private void UpdateCaloriesIntakeProgressBar() {
+		CaloriesInTake = PlayerPrefs.GetInt ("Calories_In_Take");
+		Debug.Log (CaloriesInTake);
+		caloriesIntakeProgressValue = caloriesPlayerIsHaving / (float)CaloriesInTake;
+		Debug.Log (caloriesPlayerIsHaving);
+		Debug.Log (caloriesIntakeProgressValue);
+
+		caloriesIntakeProgressValue = (float)Math.Round (caloriesIntakeProgressValue, 2, MidpointRounding.AwayFromZero );
+		caloriesIntakeBar.fillAmount = caloriesIntakeProgressValue;
+		caloriesIntakeProgressPercentage.text = ((float)caloriesIntakeBar.fillAmount) * 100 + "%";
+	}
+
+	private void UpdateBMIProgressBar() {
+		//		Debug.Log ((float)healthBar.fillAmount);
+
+		BMI_Status = PlayerPrefs.GetString ("BMIStatus");
+		//0.1 means underweight
+		if (BMI_Status == "underweight") {
+			BMIProgressValue = 0.1f;
+			BMITitleText.text = "BM I: Underweight";
+			BMIProgressPercentage.text = BMIValue + "";
+
+			//0.2 means normal
+		} else if (BMI_Status == "normal") {
+			BMIProgressValue = 0.2f;
+			BMITitleText.text = "BM I: Normal";
+			BMIProgressPercentage.text = BMIValue + "";
+
+			//0.3 means overweight
+		} else if (BMI_Status == "overweight") {
+			BMIProgressValue = 0.3f;
+			BMITitleText.text = "BM I: Overweight";
+			BMIProgressPercentage.text = BMIValue + "";
+
+		}
+
+		BMIProgressValue = (float)Math.Round (BMIProgressValue, 2, MidpointRounding.AwayFromZero );
+		BMIBar.fillAmount = BMIProgressValue * 3;
+
+
 	}
 
 	public void SettingIsClicked() {
@@ -57,7 +138,6 @@ public class DashboardScript : MonoBehaviour {
 	}
 
 	public void ClosePanel() {
-
 		settingPanel.SetActive (false);
 		BGTransparency.SetActive (false);
 	}
@@ -81,6 +161,9 @@ public class DashboardScript : MonoBehaviour {
 		PlayerPrefs.DeleteKey ("IsAuthenticated");
 		SceneManager.LoadScene ("StartMenu");
 		PlayerPrefs.DeleteAll ();
+
+		GameManager.Instance.FBLogOut ();
+
 	}
 
 	public void MealButtonIsClicked() {
