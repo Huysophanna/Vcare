@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 using LitJson;
 using UnityEngine.Networking;
@@ -34,6 +35,7 @@ public class MealControllerScript : MonoBehaviour {
 	[SerializeField] private GameObject SuccessPanel;
 	[SerializeField] private Text SuccessText;
 	private RectTransform FoodContentsRectangle;
+	private GameObject[] killEmAll;
 
 
 	private static MealControllerScript _instance;
@@ -121,8 +123,7 @@ public class MealControllerScript : MonoBehaviour {
 
 				// TODO: need to store calories as key value paired with item name
 			}
-
-			GameObject[] killEmAll;
+				
 			killEmAll = GameObject.FindGameObjectsWithTag("MenuItem");
 
 			for (int i = 0, j=1; i < Json["hits"].Count; i++, j++) {
@@ -167,6 +168,15 @@ public class MealControllerScript : MonoBehaviour {
 		BGTransparency.SetActive (false);
 		FoodMenuPanel.SetActive (false);
 		SubTitleText.SetActive (false);
+
+
+		for (int i = 0, j=1; i < killEmAll.Length; i++, j++) {
+			Transform TempChild = killEmAll[i].transform.FindChild("ItemName");
+
+			Text TempMenuItemText = TempChild.GetComponent<Text>();
+			TempMenuItemText.text = "Loading";
+
+		}
 	}
 
 	int i=0;
@@ -194,6 +204,9 @@ public class MealControllerScript : MonoBehaviour {
 
 	}
 
-
+		
+	public void BackBtnIsClicked() {
+		SceneManager.LoadScene ("Dashboard");
+	}
 
 }
