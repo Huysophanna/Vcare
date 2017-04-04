@@ -91,7 +91,7 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (NeverBtn);
 		Assert.IsNotNull (CloseBtn);
 
-		//		StartCoroutine(APIcall());
+
 
 
 
@@ -106,44 +106,7 @@ public class UserDataScript : MonoBehaviour {
 
 	}
 
-	// Request food data 
-	public IEnumerator APIcall()
-	{
-		string URL = "https://api.nutritionix.com/v1_1/search";
-		string brand = "KFC";
-		string brand_name = "\""+brand+"\"";
-		string jsonData = "";
-		jsonData = "{\"appId\":\"56f421e1\",\"appKey\":\"dd320eab137447ef0e3b13796fca8230\",\"fields\":[\"item_name\",\"nf_calories\"],\"offset\":0,\"limit\":50,\"queries\":{\"brand_name\":"+brand_name+"},\"filters\":{\"item_type\":1}}";
 
-		var request = new UnityWebRequest(URL, "POST");
-		byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-		request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
-		request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
-		request.SetRequestHeader("Content-Type", "application/json");
-
-		yield return request.Send();
-
-		if (request.isError)
-		{
-			Debug.Log(request.error);
-		}
-		else
-		{
-			Debug.Log(request.downloadHandler.text);
-			// Show result
-			Json = JsonMapper.ToObject(request.downloadHandler.text);
-			for (int i = 0; i < Json["hits"].Count; i++) {
-				item_names[i] = Json["hits"][i]["fields"]["item_name"].ToString();
-				calories[i] = Json["hits"][i]["fields"]["nf_calories"].ToString();
-				total[i] = item_names[i] + "." + calories[i];
-			}
-			Array.Sort (total);
-			Array.Sort (item_names);
-			for (int i = 0; i < Json["hits"].Count; i++) {
-				calories[i] = total[i].Substring (total[i].IndexOf('.')+1);
-			}
-		}
-	}
 	public void SaveData() {
 		userdata = PrepareUserData ();
 		if (Validate (userdata)) {
@@ -196,6 +159,7 @@ public class UserDataScript : MonoBehaviour {
 		int isActive = exerciseFrequency;
 		int Gender = userGender == "Male"? 1 : 2;
 		if (Gender == 1) {
+			PlayerPrefs.SetString("Gender","M");
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
 				PlayerPrefs.SetInt("Calories_In_Take", 2500);
@@ -285,6 +249,7 @@ public class UserDataScript : MonoBehaviour {
 			}
 
 		} else {
+			PlayerPrefs.SetString("Gender","F");
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
 				PlayerPrefs.SetInt("Calories_In_Take", 2500);
