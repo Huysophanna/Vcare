@@ -37,22 +37,18 @@ public class UserDataScript : MonoBehaviour {
 	private int userBirthDayIndex;
 	private int userGenderIndex;
 	private string userGender = "";
-<<<<<<< HEAD
+
 	private JsonData Json;
 	private string[] item_names = new string[50];
 	private string[] calories = new string[50];
 	private string[] total = new string[50];
 	private double BMI;
-||||||| merged common ancestors
-
-=======
 	private string AzureAuthorizedID;
 	private int exerciseFrequency;
 
 	Userdata[] AzureUserData;
 	Userdata userdata;
 
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
 
 	List<string> birthYear = new List<string>();
 	List<string> birthDay = new List<string>();
@@ -72,7 +68,7 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	void Update() {
-//		UserDataScript.Instance.GetAzureUserData ();
+		//		UserDataScript.Instance.GetAzureUserData ();
 	}
 
 	void Start() {
@@ -90,17 +86,14 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (userBirthDayDropDown);
 		Assert.IsNotNull (popUpInfoText);
 		Assert.IsNotNull (userGenderDropDown);
-<<<<<<< HEAD
-//		StartCoroutine(APIcall());
-||||||| merged common ancestors
-
-=======
 		Assert.IsNotNull (AlwaysBtn);
 		Assert.IsNotNull (OftenBtn);
 		Assert.IsNotNull (NeverBtn);
 		Assert.IsNotNull (CloseBtn);
 
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+
+
+
 
 		//initialize popup alert text with username for NEW user
 		popUpInfoText.text = "Hi there " + GameManager.Instance.profileName + ", \n\nWe'd like to know more about you, to assist you in a best way .";
@@ -113,82 +106,8 @@ public class UserDataScript : MonoBehaviour {
 
 	}
 
-	// Request food data 
-	public IEnumerator APIcall()
-	{
-		string URL = "https://api.nutritionix.com/v1_1/search";
-		string brand = "KFC";
-		string brand_name = "\""+brand+"\"";
-		string jsonData = "";
-		jsonData = "{\"appId\":\"56f421e1\",\"appKey\":\"dd320eab137447ef0e3b13796fca8230\",\"fields\":[\"item_name\",\"nf_calories\"],\"offset\":0,\"limit\":50,\"queries\":{\"brand_name\":"+brand_name+"},\"filters\":{\"item_type\":1}}";
 
-		var request = new UnityWebRequest(URL, "POST");
-		byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-		request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
-		request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
-		request.SetRequestHeader("Content-Type", "application/json");
-
-		yield return request.Send();
-
-		if (request.isError)
-		{
-			Debug.Log(request.error);
-		}
-		else
-		{
-			Debug.Log(request.downloadHandler.text);
-			// Show result
-			Json = JsonMapper.ToObject(request.downloadHandler.text);
-			for (int i = 0; i < Json["hits"].Count; i++) {
-					item_names[i] = Json["hits"][i]["fields"]["item_name"].ToString();
-					calories[i] = Json["hits"][i]["fields"]["nf_calories"].ToString();
-					total[i] = item_names[i] + "." + calories[i];
-						}
-			Array.Sort (total);
-			Array.Sort (item_names);
-			for (int i = 0; i < Json["hits"].Count; i++) {
-				calories[i] = total[i].Substring (total[i].IndexOf('.')+1);
-			}
-		}
-	}
 	public void SaveData() {
-<<<<<<< HEAD
-//		Insert ();
-
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
-
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetString("UserGender", userGender);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
-		BMICalulation (userHeightInput.text,userWeightInput.text);
-//		SceneManager.LoadScene ("Dashboard");
-||||||| merged common ancestors
-//		Insert ();
-
-		//initialized value if the default dropdown value is selected
-		GenderOnChanged (userGenderDropDown.value);
-		BirthDayOnChanged (userBirthDayDropDown.value);
-		BirthMonthOnChanged (userBirthMonthDropDown.value);
-		BirthYearOnChanged (userBirthYearDropDown.value);
-
-		// TODO: Save data into storage
-		PlayerPrefs.SetString("UserHeight", userHeightInput.text);
-		PlayerPrefs.SetString("UserWeight", userWeightInput.text);
-		PlayerPrefs.SetString("UserGender", userGender);
-		PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
-		PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
-		PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
-
-//		SceneManager.LoadScene ("Dashboard");
-=======
 		userdata = PrepareUserData ();
 		if (Validate (userdata)) {
 			// TODO: Alert, exercise frequency
@@ -207,9 +126,10 @@ public class UserDataScript : MonoBehaviour {
 			PlayerPrefs.SetInt("UserBirthDayIndex", userBirthDayIndex);
 			PlayerPrefs.SetInt("UserBirthMonthIndex", userBirthMonthIndex);
 			PlayerPrefs.SetInt("UserBirthYearIndex", userBirthYearIndex);
+
 		}
-	
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+
+
 	}
 
 	/* ===============================================================================================
@@ -219,12 +139,12 @@ public class UserDataScript : MonoBehaviour {
 
 	public void BMICalulation(string userHeight, string userWeight)
 	{
-		
+
 		double Height = Int32.Parse(userHeight) / 100.0;
 		int Weight = Int32.Parse(userWeight);
-//		Debug.Log(Weight);
+		//		Debug.Log(Weight);
 		BMI =  Math.Round(Weight / (Height*Height),1);
-		Debug.Log (BMI); 
+		CaloriesInTake (BMI); 
 	}
 
 	/* ===============================================================================================
@@ -234,45 +154,202 @@ public class UserDataScript : MonoBehaviour {
 
 	public void CaloriesInTake(double BMI)
 	{
-		int isActive = 1;
+		PlayerPrefs.SetFloat("BMI_Score",(float)BMI);
+		PlayerPrefs.SetInt("First_Time",1);
+		int isActive = exerciseFrequency;
 		int Gender = userGender == "Male"? 1 : 2;
 		if (Gender == 1) {
+			PlayerPrefs.SetString("Gender","M");
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
+				PlayerPrefs.SetInt("Calories_In_Take", 2500);
 			} 
 			else if (18.5 <= BMI && BMI <= 24.9) {
 				if (isActive == 3) {
+					if (2 <= age && age <= 3) {
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
+					} 
+					else if (4 <= age && age <= 8)
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2300);
+					} else if (14 <= age && age <= 18) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 3000);
+					} else if (19 <= age && age <= 30) 
+					{
+					} else if (31 <= age && age <= 50) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2800);
+					} 
+					else 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2600);
+					}
 				}
 				else if(isActive == 2)
 				{
-					
+					if (2 <= age && age <= 3) {
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					} else if (14 <= age && age <= 18) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2600);
+					} else if (19 <= age && age <= 30) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2700);
+					} else if (31 <= age && age <= 50) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
+					} 
+					else 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
+					}
 				}
 				else
 				{
-					
+					if (2 <= age && age <= 3) {
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1400);					} 
+					else if (9 <= age && age <= 13) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
+					} else if (14 <= age && age <= 18) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
+					} else if (19 <= age && age <= 30) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
+					} else if (31 <= age && age <= 50) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
+					} 
+					else 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					}
 				}
 			} 
 			else {
+				PlayerPrefs.SetInt("Calories_In_Take", 1400);
 			}
 
 		} else {
+			PlayerPrefs.SetString("Gender","F");
 			int age = 2017 - userBirthYear;
 			if (BMI < 18.5) {
+				PlayerPrefs.SetInt("Calories_In_Take", 2500);
 			} 
 			else if (18.5 <= BMI && BMI <= 24.9) {
+				if (isActive == 3) {
+					if (2 <= age && age <= 3) {
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					} else if (14 <= age && age <= 18) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
+					} else if (19 <= age && age <= 30) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2400);
+					} else if (31 <= age && age <= 50) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
+					} 
+					else 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					}
+				}
+				else if(isActive == 2)
+				{
+					if (2 <= age && age <= 3) {
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
+					} else if (14 <= age && age <= 18) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					} else if (19 <= age && age <= 30) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2200);
+					} else if (31 <= age && age <= 50) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					} 
+					else 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
+					}
+				}
+				else
+				{
+					if (2 <= age && age <= 3) {
+						PlayerPrefs.SetInt("Calories_In_Take", 1000);
+					} 
+					else if (4 <= age && age <= 8) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1200);
+					} 
+					else if (9 <= age && age <= 13) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
+					} else if (14 <= age && age <= 18) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
+					} else if (19 <= age && age <= 30) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 2000);
+					} else if (31 <= age && age <= 50) 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1800);
+					} 
+					else 
+					{
+						PlayerPrefs.SetInt("Calories_In_Take", 1600);
+					}
+				}
 			} 
-			else {
+			else { 
+				PlayerPrefs.SetInt("Calories_In_Take", 1300);
 			}
 
 		}
-
+		//insert user data to Azure service
+		Insert ();
 	}	
 
 	public void ConfirmPopUpInfoAlert() {
 		AlertPanel.SetActive (false);
 		BGTransparency.SetActive (false);
 	}
-		
+
 	void PopupExerciseFrequency() {
 		popUpInfoText.text = "How often you do exercise?";
 		AlertPanel.SetActive (true);
@@ -286,6 +363,9 @@ public class UserDataScript : MonoBehaviour {
 		//freqency: 1 never, 2 often, 3 always
 		exerciseFrequency = _frequency;
 		PlayerPrefs.SetInt ("ExerciseFrequency", exerciseFrequency);
+
+		//
+		BMICalulation (userHeightInput.text,userWeightInput.text);
 
 		//insert user data to Azure service
 		Insert ();
@@ -309,8 +389,8 @@ public class UserDataScript : MonoBehaviour {
 		if (!response.IsError && response.StatusCode == HttpStatusCode.Created) {
 			Debug.Log ("OnInsertItemCompleted: " + response.Content + " status code:" + response.StatusCode + " data:" + response.Data);
 			Userdata item = response.Data; // if successful the item will have an 'id' property value
-//			Debug.Log("JONG MER ====== "+item);
-//			_score = item;
+			//			Debug.Log("JONG MER ====== "+item);
+			//			_score = item;
 
 			SceneManager.LoadScene ("Dashboard");
 		} else {
@@ -342,16 +422,16 @@ public class UserDataScript : MonoBehaviour {
 		userdata.gender = userGender;
 		userdata.height = userHeightInput.text;
 		userdata.weight = userWeightInput.text;
-		
+
 		return userdata;
 	}
 
 	public void UpdateData ()
 	{
-//		Userdata userdata = PrepareUserData ();
-//		if (Validate (userdata)) {
-			StartCoroutine (GameManager.Instance._table.Update<Userdata> (userdata, OnUpdateScoreCompleted));
-//		}
+		//		Userdata userdata = PrepareUserData ();
+		//		if (Validate (userdata)) {
+		StartCoroutine (GameManager.Instance._table.Update<Userdata> (userdata, OnUpdateScoreCompleted));
+		//		}
 	}
 
 	private void OnUpdateScoreCompleted (IRestResponse<Userdata> response)
@@ -368,7 +448,7 @@ public class UserDataScript : MonoBehaviour {
 
 	public void GetAzureUserData ()
 	{
-//		ResetList ();
+		//		ResetList ();
 		Userdata userdata = PrepareUserData ();
 		string filter = string.Format ("username eq '{0}'", GameManager.Instance.profileName);
 		//string orderBy = "score desc";
@@ -398,9 +478,6 @@ public class UserDataScript : MonoBehaviour {
 				userBirthYearDropDown.value = data.birthYear - 1949;
 			}
 
-			Debug.Log(response.Content);
-			Debug.Log(AzureUserData.Length);
-
 
 		} else {
 			Debug.LogWarning ("Read Error Status:" + response.StatusCode + " Url: " + response.Url);
@@ -408,7 +485,7 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	IEnumerator WaitForAccessToken() {
-//		AzureAuthorizedID = PlayerPrefs.GetString ("AzureAuthorizedID");
+		//		AzureAuthorizedID = PlayerPrefs.GetString ("AzureAuthorizedID");
 		while (GameManager.Instance.AzureAuthorizedID == "") {
 			yield return null;
 		}
@@ -426,9 +503,9 @@ public class UserDataScript : MonoBehaviour {
 	*/
 
 
-//	/ <summary>
-//	/ Validate data before sending
-//	/ </summary>
+	//	/ <summary>
+	//	/ Validate data before sending
+	//	/ </summary>
 	private bool Validate (Userdata userdata)
 	{
 		bool isGenderValid = true, isBirthDayValid = true, isBirthMonthValid = true, isBirthYearValid = true, isHeightValid = true, isWeightValid = true;
@@ -523,28 +600,20 @@ public class UserDataScript : MonoBehaviour {
 	}
 
 	public void GenderOnChanged(int _genderIndex) {
-<<<<<<< HEAD
-		userGender = _genderIndex == 0 ? "Male" : "Female";
-||||||| merged common ancestors
-		userGender = _genderIndex == 0 ? "Male" : "Female";
-		Debug.Log (userGender);
-=======
 		userGenderIndex = _genderIndex;
 		userGender = _genderIndex == 1 ? "Male" : "Female";
-		Debug.Log (userGender);
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
 	}
 
 	public void BirthDayOnChanged(int _dayIndex) {
 		userBirthDayIndex = _dayIndex;
 		userBirthDay = _dayIndex + 1;
-//		Debug.Log (userBirthDay);
+		//		Debug.Log (userBirthDay);
 	}
 
 	public void BirthMonthOnChanged(int _monthIndex) {
 		userBirthMonthIndex = _monthIndex + 1;
 		userBirthMonth = _monthIndex + 1;
-//		Debug.Log (userBirthMonth);
+		//		Debug.Log (userBirthMonth);
 
 		//TODO: Dynamically update the day for the selected month
 
@@ -568,7 +637,7 @@ public class UserDataScript : MonoBehaviour {
 	public void BirthYearOnChanged(int _yearIndex) {
 		userBirthYearIndex = _yearIndex;
 		userBirthYear = _yearIndex + 1950;
-//		Debug.Log (userBirthYear);
+		//		Debug.Log (userBirthYear);
 	}
 
 }

@@ -37,25 +37,7 @@ public class GameManager : MonoBehaviour {
 		// Get App Service 'Highscores' table
 		_table = _client.GetTable<Userdata> ("Userdata");
 
-<<<<<<< HEAD
-//		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-//			SceneManager.LoadScene ("Dashboard");
-//			profileName = PlayerPrefs.GetString ("ProfileName");
-//
-//
-//		} else {
-//			SceneManager.LoadScene ("StartMenu");
-//		}
-||||||| merged common ancestors
-		if (PlayerPrefs.HasKey ("IsAuthenticated")) {
-			SceneManager.LoadScene ("Dashboard");
-			profileName = PlayerPrefs.GetString ("ProfileName");
 
-
-		} else {
-			SceneManager.LoadScene ("StartMenu");
-		}
-=======
 		if (PlayerPrefs.HasKey ("IsAuthenticated") && PlayerPrefs.HasKey ("ExistingUser")) {
 			SceneManager.LoadScene ("Dashboard");
 			profileName = PlayerPrefs.GetString ("ProfileName");
@@ -64,17 +46,32 @@ public class GameManager : MonoBehaviour {
 		} else {
 			SceneManager.LoadScene ("StartMenu");
 		}
->>>>>>> 91bf2ba506699800b136f2d9ca5038a800216d58
+
 	}
 
-	public void NewOrExistingUser() {
+	public void NewOrExistingUser(GameObject loadingScreen) {
 		//identify whether the user is new user
 		if (!PlayerPrefs.HasKey ("ExistingUser")) {
-			SceneManager.LoadScene ("UserData");
+			loadingScreen.SetActive (true);
+			StartCoroutine (loadingScreenWithRealProgress("UserData"));
+			//SceneManager.LoadScene ("UserData");
 		} else {
 			Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
-			SceneManager.LoadScene ("Dashboard");
+			//SceneManager.LoadScene ("Dashboard");
+			loadingScreen.SetActive (true);
+			StartCoroutine (loadingScreenWithRealProgress("Dashboard"));
 		}
+	}
+
+	IEnumerator loadingScreenWithRealProgress(string scenename) {
+		yield return new WaitForSeconds (1);
+		var ao = SceneManager.LoadSceneAsync (scenename);
+		ao.allowSceneActivation = false;
+
+		if (!ao.isDone) {
+			ao.allowSceneActivation = true;
+		}
+		yield return null;
 	}
 
 //	private string authenticateOption = "";

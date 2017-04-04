@@ -10,15 +10,26 @@ public class DashboardScript : MonoBehaviour {
 	[SerializeField] private GameObject settingPanel;
 	[SerializeField] private GameObject BGTransparency;
 	[SerializeField] private Text displayName;
+	[SerializeField] private GameObject CatagorySelection;
+	[SerializeField] private GameObject MealContent;
+	[SerializeField] private GameObject SnackContent;
 	private bool musicOption = true;
 	private bool soundOption = true;
 
 	// Use this for initialization
+
+	void OnMouseDrag() {
+		Debug.Log ("DRAGGING");
+	}
+
 	void Start () {
+
 		//make sure to drag and drop the menu panel gameobject in the Editor
 		Assert.IsNotNull (settingPanel);
 		Assert.IsNotNull (BGTransparency);
 		Assert.IsNotNull (displayName);
+		Assert.IsNotNull (CatagorySelection);
+		Assert.IsNotNull (MealContent);
 
 		displayName.text = GameManager.Instance.profileName;
 		Debug.Log (GameManager.Instance.profileName);
@@ -28,7 +39,7 @@ public class DashboardScript : MonoBehaviour {
 			GameManager.Instance.AuthenticateAzureService ();
 		}
 
-		Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
+//		Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
 
 		//set user to be an existing user
 		PlayerPrefs.SetString ("ExistingUser", "true");
@@ -46,6 +57,7 @@ public class DashboardScript : MonoBehaviour {
 	}
 
 	public void ClosePanel() {
+
 		settingPanel.SetActive (false);
 		BGTransparency.SetActive (false);
 	}
@@ -68,7 +80,26 @@ public class DashboardScript : MonoBehaviour {
 	public void LogOut() {
 		PlayerPrefs.DeleteKey ("IsAuthenticated");
 		SceneManager.LoadScene ("StartMenu");
-//		PlayerPrefs.DeleteAll ();
+		PlayerPrefs.DeleteAll ();
 	}
+
+	public void MealButtonIsClicked() {
+		CatagorySelection.SetActive (false);
+		MealContent.SetActive (true);
+	}
+
+	public void SnackButtonIsClicked() {
+		CatagorySelection.SetActive (false);
+		SnackContent.SetActive (true);
+	}
+
+	public void EnterTodayMeal(string _buttonName) {
+		//store to know what type of meal they click to select, brf lunch or dinner
+		PlayerPrefs.SetString ("BLDTodayMeal", _buttonName);
+
+		SceneManager.LoadScene ("MealSelection");
+//		Debug.Log (_buttonName);
+	}
+
 
 }
