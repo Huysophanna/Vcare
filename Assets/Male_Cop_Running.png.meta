@@ -1,0 +1,400 @@
+fileFormatVersion: 2
+guid: 304d17f348ea9f24e974a12b0e1370fc
+timeCreated: 1491267872
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Male_Cop_Running_0
+    21300002: Male_Cop_Running_1
+    21300004: Male_Cop_Running_2
+    21300006: Male_Cop_Running_3
+    21300008: Male_Cop_Running_4
+    21300010: Male_Cop_Running_5
+    21300012: Male_Cop_Running_6
+    21300014: Male_Cop_Running_7
+    21300016: Male_Cop_Running_8
+    21300018: Male_Cop_Running_9
+    21300020: Male_Cop_Running_10
+    21300022: Male_Cop_Running_11
+    21300024: Male_Cop_Running_12
+    21300026: Male_Cop_Running_13
+    21300028: Male_Cop_Running_14
+    21300030: Male_Cop_Running_15
+    21300032: Male_Cop_Running_16
+    21300034: Male_Cop_Running_17
+    21300036: Male_Cop_Running_18
+    21300038: Male_Cop_Running_19
+    21300040: Male_Cop_Running_20
+    21300042: Male_Cop_Running_21
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Male_Cop_Running_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 2135
+        width: 372
+        height: 928
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_1
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 2144
+        width: 366
+        height: 919
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_2
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 2141
+        width: 366
+        height: 922
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_3
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 2141
+        width: 364
+        height: 923
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_4
+      rect:
+        serializedVersion: 2
+        x: 1883
+        y: 2133
+        width: 356
+        height: 930
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_5
+      rect:
+        serializedVersion: 2
+        x: 2339
+        y: 2131
+        width: 358
+        height: 934
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_6
+      rect:
+        serializedVersion: 2
+        x: 2787
+        y: 2091
+        width: 362
+        height: 972
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_7
+      rect:
+        serializedVersion: 2
+        x: 3235
+        y: 2077
+        width: 370
+        height: 986
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_8
+      rect:
+        serializedVersion: 2
+        x: 3689
+        y: 2079
+        width: 370
+        height: 986
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_9
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1027
+        width: 374
+        height: 970
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_10
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 1056
+        width: 360
+        height: 941
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_11
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 1073
+        width: 338
+        height: 924
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_12
+      rect:
+        serializedVersion: 2
+        x: 1461
+        y: 1077
+        width: 324
+        height: 920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_13
+      rect:
+        serializedVersion: 2
+        x: 1933
+        y: 1069
+        width: 302
+        height: 928
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_14
+      rect:
+        serializedVersion: 2
+        x: 2383
+        y: 1067
+        width: 306
+        height: 930
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_15
+      rect:
+        serializedVersion: 2
+        x: 2823
+        y: 1035
+        width: 318
+        height: 962
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_16
+      rect:
+        serializedVersion: 2
+        x: 3265
+        y: 1019
+        width: 330
+        height: 978
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_17
+      rect:
+        serializedVersion: 2
+        x: 3701
+        y: 1005
+        width: 348
+        height: 992
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_18
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 51
+        width: 364
+        height: 989
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_19
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 56
+        width: 360
+        height: 984
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_20
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 85
+        width: 370
+        height: 954
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Male_Cop_Running_21
+      rect:
+        serializedVersion: 2
+        x: 2383
+        y: 111
+        width: 372
+        height: 930
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
