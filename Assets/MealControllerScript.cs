@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MealControllerScript : MonoBehaviour {
 	private string BLDMealSelection;
@@ -88,6 +89,10 @@ public class MealControllerScript : MonoBehaviour {
 
 		Debug.Log (FoodContents.transform.localScale.y);
 
+	}
+
+	public void BackBtnIsClicked() {
+		SceneManager.LoadScene ("Dashboard");
 	}
 
 }
