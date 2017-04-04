@@ -31,6 +31,8 @@ public class MealControllerScript : MonoBehaviour {
 	[SerializeField] private GameObject MenuItem;
 	[SerializeField] private Text ItemNameText;
 	[SerializeField] private GameObject SubTitleText;
+	[SerializeField] private GameObject SuccessPanel;
+	[SerializeField] private Text SuccessText;
 	private RectTransform FoodContentsRectangle;
 
 
@@ -50,7 +52,9 @@ public class MealControllerScript : MonoBehaviour {
 		Assert.IsNotNull (BGTransparency);
 		Assert.IsNotNull (FoodMenuPanel);
 		Assert.IsNotNull (FoodContents);
+		Assert.IsNotNull (SubTitleText);
 		Assert.IsNotNull (ItemNameText);
+		Assert.IsNotNull (SuccessPanel);
 
 		menuItemPositionX = MenuItem.transform.position.x;
 		menuItemPositionY = MenuItem.transform.position.y;
@@ -146,8 +150,17 @@ public class MealControllerScript : MonoBehaviour {
 			PlayerPrefs.SetString (BLDMealSelection + "TodayCalories", calories[Int32.Parse(ItemClicked.text.ToString().Substring(0, 1)) - 1]);
 			Debug.Log (BLDMealSelection + " " + PlayerPrefs.GetString (BLDMealSelection + "Today") + PlayerPrefs.GetString (BLDMealSelection + "TodayCalories"));
 
-
+			PresentSuccessPopup ();
 		}
+	}
+
+	private void PresentSuccessPopup() {
+		SuccessText.text = "Success!\nYour " + BLDMealSelection + " Item was selected.\nyou can still select more.";
+		SuccessPanel.SetActive (true);
+	}
+
+	public void ClosePopup() {
+		SuccessPanel.SetActive (false);
 	}
 
 	public void DisableTransparent() {
