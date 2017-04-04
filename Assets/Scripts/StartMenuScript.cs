@@ -63,6 +63,7 @@ public class StartMenuScript : MonoBehaviour {
 	}
 
 	void OnFBAuthCompleted (ILoginResult result) {
+		Debug.Log (result.ToString());
 		if (result.Error != null) {
 			Debug.Log (result.Error);
 		} else {

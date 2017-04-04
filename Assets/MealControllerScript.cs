@@ -114,13 +114,13 @@ public class MealControllerScript : MonoBehaviour {
 				total[i] = item_names[i] + "." + calories[i];
 			}
 
-			GameObject[] killEmAll;
-			killEmAll = GameObject.FindGameObjectsWithTag("MenuItem");
+			GameObject[] FindTempItem;
+			FindTempItem = GameObject.FindGameObjectsWithTag("MenuItem");
 
 			for (int i = 0; i < Json["hits"].Count; i++) {
 				Debug.Log(item_names[i]);
 
-				Transform TempChild = killEmAll[i].transform.FindChild("ItemName");
+				Transform TempChild = FindTempItem[i].transform.FindChild("ItemName");
 
 				Text TempMenuItemText = TempChild.GetComponent<Text>();
 				TempMenuItemText.text = item_names [i];

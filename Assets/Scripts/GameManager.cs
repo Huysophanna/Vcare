@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 
+		Debug.Log (FB.IsLoggedIn);
+		Debug.Log (isLoggedIn);
+
 		// Create App Service client
 		_client = new MobileServiceClient (AzureAppURL);
 
@@ -142,5 +145,9 @@ public class GameManager : MonoBehaviour {
 		} else {
 			Debug.Log (result.Error);
 		}
+	}
+
+	public void FBLogOut() {
+		FB.LogOut ();
 	}
 }
