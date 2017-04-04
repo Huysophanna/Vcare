@@ -13,6 +13,8 @@ using System.Net;
 
 public class StartMenuScript : MonoBehaviour {
 
+	[SerializeField] private GameObject loadingScreen;
+
 	private static StartMenuScript _instance;
 	public static StartMenuScript Instance {
 		get {
@@ -57,9 +59,25 @@ public class StartMenuScript : MonoBehaviour {
 		Debug.Log ("backScene " + preScene);
 	}
 
-	public void FBlogin() {
+	public void loadDashboard() {
+		this.loadingScreen.SetActive (true);
+		StartCoroutine (loadingScreenWithRealProgress());
+	}
+
+	public void FBlogin(GameObject loadingScreen) {
 		List<string> permissions = new List<string>(){"public_profile", "email"};
 		FB.LogInWithReadPermissions (permissions, OnFBAuthCompleted);
+	}
+
+	IEnumerator loadingScreenWithRealProgress() {
+		yield return new WaitForSeconds (1);
+		var ao = SceneManager.LoadSceneAsync ("Dashboard");
+		ao.allowSceneActivation = false;
+
+		if (!ao.isDone) {
+			ao.allowSceneActivation = true;
+		}
+		yield return null;
 	}
 
 	void OnFBAuthCompleted (ILoginResult result) {
@@ -92,6 +110,6 @@ public class StartMenuScript : MonoBehaviour {
 
 		//identify whether the logged in user is a new user or existing user
 		//new user will be sent to UserData scene
-		GameManager.Instance.NewOrExistingUser ();
+		GameManager.Instance.NewOrExistingUser (this.loadingScreen);
 	}
 }

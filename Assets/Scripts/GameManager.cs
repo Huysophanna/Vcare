@@ -52,14 +52,29 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	public void NewOrExistingUser() {
+	public void NewOrExistingUser(GameObject loadingScreen) {
 		//identify whether the user is new user
 		if (!PlayerPrefs.HasKey ("ExistingUser")) {
-			SceneManager.LoadScene ("UserData");
+			loadingScreen.SetActive (true);
+			StartCoroutine (loadingScreenWithRealProgress("UserData"));
+			//SceneManager.LoadScene ("UserData");
 		} else {
 			Debug.Log (PlayerPrefs.HasKey ("ExistingUser"));
-			SceneManager.LoadScene ("Dashboard");
+			//SceneManager.LoadScene ("Dashboard");
+			loadingScreen.SetActive (true);
+			StartCoroutine (loadingScreenWithRealProgress("Dashboard"));
 		}
+	}
+
+	IEnumerator loadingScreenWithRealProgress(string scenename) {
+		yield return new WaitForSeconds (1);
+		var ao = SceneManager.LoadSceneAsync (scenename);
+		ao.allowSceneActivation = false;
+
+		if (!ao.isDone) {
+			ao.allowSceneActivation = true;
+		}
+		yield return null;
 	}
 
 //	private string authenticateOption = "";
