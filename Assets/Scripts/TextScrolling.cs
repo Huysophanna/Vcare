@@ -13,14 +13,35 @@ public class TextScrolling : MonoBehaviour {
 	private string BMI_Status,Info;
 	int characterindex=0;
 	int stringindex=0;
+	private string BLDMealSelection;
+	private string BrfTodaySelection = "";
+	private string BrfTodaySelectionCalories;
+	private string LunchTodaySelection = "";
+	private string LunchTodaySelectionCalories = "";
+	private string DinnerTodaySelection = "";
+	private string DinnerTodaySelectionCalories = "";
+
+
+	private List<string> SelectedTodayItem = new List<string>();
+	private List<string> SelectedTodayItemCalories = new List<string>();
+	private List<string> LunchTodayItem = new List<string>();
+	private List<string> LunchTodayItemCalories = new List<string>();
+	private List<string> DinnerTodayItem = new List<string>();
+	private List<string> DinnerTodayCalories = new List<string>();
+
 
 	// Use this for initialization
 	void Start () {
+		BLDMealSelection = PlayerPrefs.GetString ("BLDTodayMeal");
 		Stringinput = new string[10];
 		First_Time = PlayerPrefs.GetInt("First_Time");
 		BMI_Score = PlayerPrefs.GetFloat("BMI_Score");
 		Calories_In_Take = PlayerPrefs.GetInt("Calories_In_Take");
 		Information();
+
+
+
+		Debug.Log (BLDMealSelection + " " + PlayerPrefs.GetString (BLDMealSelection + "Today") + PlayerPrefs.GetString (BLDMealSelection + "TodayCalories"));
 	}
 
 	public void Information()
@@ -43,7 +64,7 @@ public class TextScrolling : MonoBehaviour {
 		}
 		else
 		{
-			Stringinput.SetValue("Hello!", 0);
+			Stringinput.SetValue("Hello! Please get back everytime and select every meal you have", 0);
 			StartCoroutine (TextAnimated());
 		}
 	}
@@ -62,6 +83,11 @@ public class TextScrolling : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		BrfTodaySelection = PlayerPrefs.GetString("breakfastToday");
+		LunchTodaySelection = PlayerPrefs.GetString("lunchToday");
+		DinnerTodaySelection = PlayerPrefs.GetString("dinnerToday");
+
+
 		if (Input.GetMouseButtonDown(0)) {
 			if (characterindex < Stringinput [stringindex].Length) {
 				characterindex = Stringinput [stringindex].Length;

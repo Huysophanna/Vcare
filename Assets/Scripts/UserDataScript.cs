@@ -25,6 +25,7 @@ public class UserDataScript : MonoBehaviour {
 	[SerializeField] private GameObject OftenBtn;
 	[SerializeField] private GameObject NeverBtn;
 	[SerializeField] private GameObject CloseBtn;
+	[SerializeField] private GameObject LoadingPanel;
 
 
 
@@ -90,10 +91,6 @@ public class UserDataScript : MonoBehaviour {
 		Assert.IsNotNull (OftenBtn);
 		Assert.IsNotNull (NeverBtn);
 		Assert.IsNotNull (CloseBtn);
-
-
-
-
 
 		//initialize popup alert text with username for NEW user
 		popUpInfoText.text = "Hi there " + GameManager.Instance.profileName + ", \n\nWe'd like to know more about you, to assist you in a best way .";
@@ -385,6 +382,22 @@ public class UserDataScript : MonoBehaviour {
 		StartCoroutine (GameManager.Instance._table.Insert<Userdata> (userdata, OnInsertCompleted));
 	}
 
+	public void loadDashboard() {
+		LoadingPanel.SetActive (true);
+		StartCoroutine (loadingScreenWithRealProgress());
+	}
+
+	IEnumerator loadingScreenWithRealProgress() {
+		yield return new WaitForSeconds (1);
+		var ao = SceneManager.LoadSceneAsync ("Dashboard");
+		ao.allowSceneActivation = false;
+
+		if (!ao.isDone) {
+			ao.allowSceneActivation = true;
+		}
+		yield return null;
+	}
+
 	private void OnInsertCompleted (IRestResponse<Userdata> response)
 	{
 		if (!response.IsError && response.StatusCode == HttpStatusCode.Created) {
@@ -393,7 +406,10 @@ public class UserDataScript : MonoBehaviour {
 			//			Debug.Log("JONG MER ====== "+item);
 			//			_score = item;
 
-			SceneManager.LoadScene ("Dashboard");
+
+			loadDashboard ();
+
+//			SceneManager.LoadScene ("Dashboard");
 		} else {
 			Debug.LogWarning ("Insert Error Status:" + response.StatusCode + " Url: " + response.Url);
 
@@ -440,7 +456,8 @@ public class UserDataScript : MonoBehaviour {
 		if (!response.IsError) {
 			Debug.Log ("OnUpdateItemCompleted: " + response.Content);
 
-			SceneManager.LoadScene ("Dashboard");
+			loadDashboard ();
+//			SceneManager.LoadScene ("Dashboard");
 		} else {
 			Debug.LogWarning ("Update Error Status:" + response.StatusCode + " " + response.ErrorMessage + " Url: " + response.Url);
 			//TODO: Show alert, No connection

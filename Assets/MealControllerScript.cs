@@ -22,10 +22,21 @@ public class MealControllerScript : MonoBehaviour {
 	private float foodContentSizeDeltaX;
 	private float foodContentSizeDeltaY;
 
+
 	private JsonData Json;
 	private string[] item_names = new string[50];
 	private string[] calories = new string[50];
 	private string[] total = new string[50];
+	private RectTransform FoodContentsRectangle;
+	private GameObject[] FindTempItem;
+
+	private String[] BrfTodayItem;
+	private String[] BrfTodayItemCalories;
+//	private List<string> LunchTodayItem = new List<string>();
+//	private List<string> LunchTodayItemCalories = new List<string>();
+//	private List<string> DinnerTodayItem = new List<string>();
+//	private List<string> DinnerTodayCalories = new List<string>();
+
 	[SerializeField] private GameObject BGTransparency;
 	[SerializeField] private GameObject FoodMenuPanel;
 	[SerializeField] private GameObject FoodContents;
@@ -34,9 +45,6 @@ public class MealControllerScript : MonoBehaviour {
 	[SerializeField] private GameObject SubTitleText;
 	[SerializeField] private GameObject SuccessPanel;
 	[SerializeField] private Text SuccessText;
-	private RectTransform FoodContentsRectangle;
-	private GameObject[] FindTempItem;
-
 
 	private static MealControllerScript _instance;
 	public static MealControllerScript Instance {
@@ -48,9 +56,18 @@ public class MealControllerScript : MonoBehaviour {
 	void Awake() {
 		_instance = this;
 	}
+
+	private string breakfastTodayCalories = "";
+	private string lunchTodayCalories = "";
+	private string dinnerTodayCalories = "";
+	private string snackTodaycalories = "";
 	
 	// Use this for initialization
 	void Start () {
+
+		BrfTodayItem = new string[50];
+		BrfTodayItemCalories = new string[50];
+
 		Assert.IsNotNull (BGTransparency);
 		Assert.IsNotNull (FoodMenuPanel);
 		Assert.IsNotNull (FoodContents);
@@ -76,11 +93,11 @@ public class MealControllerScript : MonoBehaviour {
 			InstantiateFoodItem ("Loading");
 		}
 
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		GetUserBLDMealToday ();
 		
 	}
 
@@ -89,6 +106,7 @@ public class MealControllerScript : MonoBehaviour {
 		BGTransparency.SetActive (true);
 		FoodMenuPanel.SetActive (true);
 		SubTitleText.SetActive (true);
+
 		StartCoroutine(APIcall(restaurantSelected));
 	}
 	// Request food data 
@@ -125,7 +143,6 @@ public class MealControllerScript : MonoBehaviour {
 			FindTempItem = GameObject.FindGameObjectsWithTag("MenuItem");
 				// TODO: need to store calories as key value paired with item name
 			}
-				
 
 			for (int i = 0, j=1; i < Json["hits"].Count; i++, j++) {
 				Debug.Log(item_names[i]);
@@ -136,11 +153,31 @@ public class MealControllerScript : MonoBehaviour {
 				TempMenuItemText.text = j + ". " + item_names [i];
 
 			}
-
 		}
 	}
 
+	private void GetUserBLDMealToday() {
+
+//		Debug.Log(PlayerPrefs.GetString ("BLDTodayMeal"));
+//		Debug.Log(PlayerPrefs.GetString ("breakfastToday"));
+//		Debug.Log(PlayerPrefs.GetString ("lunchToday"));
+//		Debug.Log(PlayerPrefs.GetString ("dinnerToday"));
+
+		breakfastTodayCalories = PlayerPrefs.GetString ("breakfastTodayCalories");
+		lunchTodayCalories = PlayerPrefs.GetString ("lunchTodayCalories");
+		dinnerTodayCalories = PlayerPrefs.GetString ("dinnerTodayCalories");
+		snackTodaycalories = PlayerPrefs.GetString ("snackTodayCalories");
+
+		Debug.Log(breakfastTodayCalories);
+		Debug.Log(lunchTodayCalories);
+		Debug.Log(dinnerTodayCalories);
+		Debug.Log(snackTodaycalories);
+	}
+
 	public void EachItemIsClicked() {
+//		string[] test = PlayerPrefsX.GetStringArray (BLDMealSelection + "Today");
+
+
 		
 		Text ItemClicked = EventSystem.current.currentSelectedGameObject.GetComponent<Text>();
 
@@ -148,21 +185,61 @@ public class MealControllerScript : MonoBehaviour {
 		if (ItemClicked.text != "Loading") {
 			// TODO: store data, playerprefs as of now
 			//meal return, breakfast, lunch, dinner
-			PlayerPrefs.SetString (BLDMealSelection + "Today", ItemClicked.text);
-			PlayerPrefs.SetString (BLDMealSelection + "TodayCalories", calories[Int32.Parse(ItemClicked.text.ToString().Substring(0, 1)) - 1]);
-			Debug.Log (BLDMealSelection + " " + PlayerPrefs.GetString (BLDMealSelection + "Today") + PlayerPrefs.GetString (BLDMealSelection + "TodayCalories"));
+//			
+//			if (BLDMealSelection == "breakfast") {
+//				BrfTodayItem.SetValue (ItemClicked.text, brfIndex);
+//				BrfTodayItemCalories.SetValue (calories [Int32.Parse (ItemClicked.text.ToString ().Substring (0, 1)) - 1], brfIndex);
+//				brfIndex = brfIndex + 1;
+////				PlayerPrefs.SetInt ("BrfIndex", brfIndex);
+
+//				PlayerPrefs.SetString (BLDMealSelection + "Today", ItemClicked.text);
+	
+//			}
+
+			Debug.Log (BrfTodayItem.Length + " " + BrfTodayItemCalories.Length);
+//
+//			string[] ItemConvertToArray = SelectedTodayItem.ToArray ();
+//			string[] BrfCaloriesToArray = SelectedTodayItemCalories.ToArray ();
+//
+//			PlayerPrefsX.SetStringArray (BLDMealSelection + "Today", BrfCaloriesToArray);
+//			PlayerPrefsX.SetStringArray (BLDMealSelection + "TodayCalories", BrfCaloriesToArray);
+
+			if (BLDMealSelection == "breakfast") {
+				DashboardScript.Instance.AddBrfCalories (ItemClicked.text, calories[Int32.Parse(ItemClicked.text.ToString().Substring(0, 1)) - 1]);
+			}
+
+			if (BLDMealSelection == "lunch") {
+				DashboardScript.Instance.AddLucnchCalories (ItemClicked.text, calories[Int32.Parse(ItemClicked.text.ToString().Substring(0, 1)) - 1]);
+			}
+
+			if (BLDMealSelection == "dinner") {
+				DashboardScript.Instance.AddDinnerCalories (ItemClicked.text, calories[Int32.Parse(ItemClicked.text.ToString().Substring(0, 1)) - 1]);
+			}
+
+			if (BLDMealSelection == "snack") {
+				DashboardScript.Instance.AddSnackCalories (ItemClicked.text, calories[Int32.Parse(ItemClicked.text.ToString().Substring(0, 1)) - 1]);
+			}
+				
+//			Debug.Log (BLDMealSelection + " " + PlayerPrefs.GetString (BLDMealSelection + "Today") + PlayerPrefs.GetString (BLDMealSelection + "TodayCalories"));
+
+
+
 
 			PresentSuccessPopup ();
 		}
 	}
 
 	private void PresentSuccessPopup() {
-		SuccessText.text = "Success!\nYour " + BLDMealSelection + " Item was selected.\nyou can still select more.";
+		SuccessText.text = "Success!\nYour " + BLDMealSelection + " Item was selected.\nYou can check the detail in report section in the avatar screen.";
 		SuccessPanel.SetActive (true);
+		
 	}
 
 	public void ClosePopup() {
 		SuccessPanel.SetActive (false);
+		DisableTransparent ();
+
+		SceneManager.LoadScene ("Dashboard");
 	}
 
 	public void DisableTransparent() {
@@ -184,7 +261,7 @@ public class MealControllerScript : MonoBehaviour {
 
 	void InstantiateFoodItem(string _itemName) {
 		menuItemPositionX += 1f;
-		menuItemPositionY -= 58f;
+		menuItemPositionY -= 88f;
 		foodContentPositionY -= 28;
 
 //		Debug.Log (menuItemPositionY);
@@ -198,7 +275,7 @@ public class MealControllerScript : MonoBehaviour {
 		aMenuItem.transform.position = new Vector2 (menuItemPositionX, menuItemPositionY);
 //		Debug.Log ("x: " + transform.position.x + "y: " + transform.position.y);
 
-		FoodContentsRectangle.sizeDelta = new Vector2(FoodContentsRectangle.sizeDelta.x, FoodContentsRectangle.sizeDelta.y + 42f);
+		FoodContentsRectangle.sizeDelta = new Vector2(FoodContentsRectangle.sizeDelta.x, FoodContentsRectangle.sizeDelta.y + 42f);   //42
 		FoodContents.transform.position = new Vector2 (FoodContents.transform.position.x + 1f, foodContentPositionY);
 
 //		Debug.Log (FoodContents.transform.localScale.y);
